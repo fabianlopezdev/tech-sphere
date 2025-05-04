@@ -1,0 +1,15 @@
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+:root {
+    --bg-light: #f2f2f2;
+    --bg-dark: #111;
+    --text-dark: #000;
+    --text-light: #fff;
+    --accent: #333;
+  }

@@ -1,16 +1,116 @@
 ---
+import Preloader from "@components/preloader.astro";
+import CarouselBanner from "@components/coming-soon/CarouselBanner.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
 
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<script src="/src/scripts/coming-soon/comingSoon"></script>
+
+<BaseLayout pageTitle="Tech Sphere" pageDescription="La web de Tech Sphere està en construcció">
+	<!-- <Preloader/> -->
+	<button id="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+	<main class="container">
+		<div class="logo">◎</div>
+		<h1 class="title">TECH<br /><span>SPHERE</span></h1>
+		<p class="subtitle">DESIGN · DEVELOPMENT · GROWTH</p>
+		<CarouselBanner />
+	
+  
+		<!-- Contact Info -->
+		<footer>
+		  <p>Contact us at <a href="mailto:admin@tech-sphere.io">admin@tech-sphere.io</a></p>
+		  <form id="notify-form">
+			<input type="email" placeholder="Get notified when we launch" aria-label="Email" />
+			<button type="submit">→</button>
+		  </form>
+		</footer>
+	  </main>
+</BaseLayout>
+
+<style>
+
+#dark-mode-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.container {
+ width: 100vw;
+ height: 100vh;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ text-align: center;
+}
+
+.logo {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.title span {
+  display: block;
+}
+
+.subtitle {
+  margin-top: 0.5rem;
+  letter-spacing: 0.1em;
+  font-size: 1rem;
+  color: var(--accent);
+}
+
+
+
+footer {
+  position: absolute;
+  bottom: 2rem;
+  left: 5rem;
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+#notify-form {
+  margin-top: 1rem;
+}
+
+#notify-form input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  width: 60%;
+  max-width: 300px;
+}
+
+#notify-form button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background: var(--text-dark);
+  color: var(--text-light);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+body.dark #notify-form button {
+  background: var(--text-light);
+  color: var(--text-dark);
+}
+
+</style>
