@@ -2,6 +2,7 @@
 import Preloader from "@components/preloader.astro";
 import CarouselBanner from "@components/coming-soon/CarouselBanner.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import TechSphereViewer from "@components/TechSphereViewer.astro";
 
 
 ---
@@ -12,7 +13,8 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 	<!-- <Preloader/> -->
 	<button id="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
 	<main class="container">
-		<div class="logo">◎</div>
+		<!-- Sphere Viewer -->
+		 <TechSphereViewer />
 		<h1 class="title">TECH<br /><span>SPHERE</span></h1>
 		<p class="subtitle">DESIGN · DEVELOPMENT · GROWTH</p>
 		<CarouselBanner />
