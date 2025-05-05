@@ -1,118 +1,183 @@
 ---
-import Preloader from "@components/preloader.astro";
+// No Preloader import needed
 import CarouselBanner from "@components/coming-soon/CarouselBanner.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import TechSphereViewer from "@components/TechSphereViewer.astro";
-
-
+import TechSphereViewer from "@components/coming-soon/TechSphereViewer.astro";
+import TitleWPreloader from "@components/coming-soon/TitleWPreloader.astro";
+import Subtitle from "@components/coming-soon/Subtitle.astro";
+import Footer from "@components/coming-soon/Footer.astro";
+// import '/src/scripts/coming-soon/comingSoon';
 ---
 
-<script src="/src/scripts/coming-soon/comingSoon"></script>
+<script src="/src/scripts/coming-soon/darkToggle"></script>
 
 <BaseLayout pageTitle="Tech Sphere" pageDescription="La web de Tech Sphere està en construcció">
-	<!-- <Preloader/> -->
-	<button id="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
-	<main class="container">
-		<!-- Sphere Viewer -->
-		 <TechSphereViewer />
-		<h1 class="title">TECH<br /><span>SPHERE</span></h1>
-		<p class="subtitle">DESIGN · DEVELOPMENT · GROWTH</p>
-		<CarouselBanner />
-	
-  
-		<!-- Contact Info -->
-		<footer>
-		  <p>Contact us at <a href="mailto:admin@tech-sphere.io">admin@tech-sphere.io</a></p>
-		  <form id="notify-form">
-			<input type="email" placeholder="Get notified when we launch" aria-label="Email" />
-			<button type="submit">→</button>
-		  </form>
-		</footer>
-	  </main>
+	<button id="dark-mode-toggle" aria-label="Toggle dark mode">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+			<path d="M21 12.79A9 9 0 0111.21 3 7 7 0 1012 21a9 9 0 009-8.21z"/>
+	  </svg>
+	</button>
+
+	<main>
+		<TitleWPreloader />
+		<TechSphereViewer />
+		<!-- Wrapper for content that appears AFTER preload -->
+		<!-- Initially takes up no space due to max-height: 0 -->
+		<div id="main-content-wrapper">
+			<Subtitle/>
+			<CarouselBanner />
+			<div class="footer-container">
+				<div class="footer-content">
+					<Footer />
+				</div>
+			</div>
+		</div>
+	</main>
 </BaseLayout>
 
 <style>
+html, body {
+  height: 100%;
+  margin: 0;
+  /* Define theme variables (adjust colors as needed) */
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --button-bg: #f0f0f0;
+  --button-shadow: rgba(0, 0, 0, 0.4);
+  --button-shadow-hover: rgba(0, 0, 0, 0.3);
+  --button-shadow-active: rgba(0, 0, 0, 0.5);
+  --button-icon-color: #555555;
+}
 
+html.dark {
+  --bg-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --button-bg: #333333;
+  --button-shadow: rgba(0, 0, 0, 0.6); /* Darker shadow for dark mode */
+  --button-shadow-hover: rgba(0, 0, 0, 0.5);
+  --button-shadow-active: rgba(0, 0, 0, 0.7);
+  --button-icon-color: #b0b0b0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth theme transition */
+}
+
+
+/* --- Main & Content Wrapper Styles (Updated) --- */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  position: relative;
+  /* padding: 1rem; */
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+#main-content-wrapper {
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.6s ease-in-out 0.1s,
+              visibility 0.6s ease-in-out 0.1s,
+              max-height 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1; /* Take up available space */
+}
+
+#main-content-wrapper.visible {
+  opacity: 1;
+  visibility: visible;
+  max-height: 150vh;
+}
+
+/* New footer container styles */
+.footer-container {
+  width: 100%;
+  margin-top: auto; /* Push footer to bottom */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1; /* Take up all available space */
+  min-height: 30vh; /* Ensure a minimum height for the footer area */
+}
+
+/* Center the footer content vertically */
+
+
+/* --- Dark Mode Toggle Button Styles --- */
 #dark-mode-toggle {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
+  z-index: 100;
   cursor: pointer;
+
+  /* --- Button Appearance --- */
+  background-color: var(--button-bg); /* Use theme variable */
+  border: none; /* Remove default border */
+  border-radius: 50%; /* Keep it circular */
+  width: 48px;  /* Set fixed size for consistency */
+  height: 48px; /* Set fixed size for consistency */
+  color: var(--button-icon-color); /* Control SVG color via text color */
+
+  /* --- Center SVG inside Button --- */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* --- 3D Effect - Resting State --- */
+  box-shadow: 3px 3px 6px var(--button-shadow), /* Main shadow */
+              -1px -1px 3px rgba(255, 255, 255, 0.1); /* Subtle highlight (optional) */
+
+  /* --- Smooth Transitions --- */
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              box-shadow 0.15s ease-out,
+              transform 0.15s ease-out;
 }
 
-.container {
- width: 100vw;
- height: 100vh;
- display: flex;
- flex-direction: column;
- justify-content: center;
- align-items: center;
- text-align: center;
+/* --- 3D Effect - Hover State --- */
+#dark-mode-toggle:hover {
+  box-shadow: 4px 4px 8px var(--button-shadow-hover), /* Slightly larger/softer shadow */
+              -1px -1px 3px rgba(255, 255, 255, 0.1);
+  /* Optional: lift effect */
+  /* transform: translateY(-1px); */
 }
 
-.logo {
-  font-size: 3rem;
-  line-height: 1;
-  margin-bottom: 1rem;
+/* --- 3D Effect - Active (Pressed) State --- */
+#dark-mode-toggle:active {
+  box-shadow: inset 2px 2px 4px var(--button-shadow-active), /* Inset shadow for pressed look */
+              1px 1px 2px rgba(0, 0, 0, 0.2); /* Smaller outer shadow */
+  transform: translateY(1px); /* Simulate button moving down */
+  color: var(--text-color); /* Optional: make icon slightly brighter/dimmer */
 }
 
-.title {
-  font-size: 3rem;
-  font-weight: bold;
-  margin: 0;
+/* --- Style the SVG inside the button --- */
+#dark-mode-toggle svg {
+	width: 24px; /* Keep original size or adjust if needed */
+	height: 24px;
+	/* fill: currentColor; */ /* Let the button's 'color' style control the SVG fill */
+    /* color is inherited now, no need for fill directly here unless overriding */
 }
 
-.title span {
-  display: block;
-}
 
-.subtitle {
+.consent-label {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
   margin-top: 0.5rem;
-  letter-spacing: 0.1em;
-  font-size: 1rem;
-  color: var(--accent);
-}
-
-
-
-footer {
-  position: absolute;
-  bottom: 2rem;
-  left: 5rem;
-  font-size: 0.9rem;
-  color: var(--accent);
-}
-
-#notify-form {
-  margin-top: 1rem;
-}
-
-#notify-form input {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
-  width: 60%;
-  max-width: 300px;
-}
-
-#notify-form button {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  background: var(--text-dark);
-  color: var(--text-light);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-body.dark #notify-form button {
-  background: var(--text-light);
-  color: var(--text-dark);
 }
 
 </style>

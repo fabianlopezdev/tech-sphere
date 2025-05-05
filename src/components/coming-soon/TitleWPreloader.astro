@@ -1,0 +1,32 @@
+---
+---
+
+<script src="/src/scripts/coming-soon/titlePreloader"></script>
+
+<h1 id="main-title" class="title">TECH<br /><span class="title-second">SPHERE</span></h1>
+
+<style>
+    .title {
+  font-size: clamp(5rem, 12vw, 10rem); /* Responsive font size */
+  margin: 0;
+  margin-top: 1rem;/* Remove extra margins that might affect centering */
+  text-align: center;
+  line-height: 0.85; 
+  font-family: 'YourFinalFontName', 'Arial Black', Gadget, sans-serif; 
+  letter-spacing: normal; 
+  overflow-wrap: break-word; 
+  max-width: 100%;
+  flex-shrink: 0; /* Prevent title from shrinking if content is large */
+}
+
+.title span {
+  display: block;
+}
+
+.title-second {
+  /* Adjust font size relative to the main title's clamp */
+  font-size: clamp(3.4rem, 8vw, 6.8rem); 
+  font-weight: normal;
+  color: var(--accent);
+}
+</style>
