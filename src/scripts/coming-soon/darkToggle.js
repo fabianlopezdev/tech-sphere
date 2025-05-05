@@ -16,14 +16,24 @@ document.addEventListener('DOMContentLoaded', () => {
       const userPref = localStorage.getItem('theme');
   
       const isDark = userPref === 'dark' || (!userPref && prefersDark);
+      
+      // Apply the theme to HTML element instead of just body for more consistent theme handling
+      document.documentElement.classList.toggle('dark', isDark);
       document.body.classList.toggle('dark', isDark);
+      
       toggle.innerHTML = isDark ? sunIcon : moonIcon;
   
       toggle.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
         document.body.classList.toggle('dark');
         const nowDark = document.body.classList.contains('dark');
         toggle.innerHTML = nowDark ? sunIcon : moonIcon;
         localStorage.setItem('theme', nowDark ? 'dark' : 'light');
+        
+        // Dispatch a custom event that other scripts can listen for
+        document.dispatchEvent(new CustomEvent('themeChanged', { 
+          detail: { isDark: nowDark }
+        }));
       });
     } else {
       console.warn("Dark mode toggle button not found.");

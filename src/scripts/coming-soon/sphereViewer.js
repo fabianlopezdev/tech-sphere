@@ -9,14 +9,48 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Target Colors for the Sphere Model ---
-  const targetColors = [
-    // NOTE: THREE.Color takes RGB values between 0.0 and 1.0
-    // Using more vibrant colors with higher saturation
-    new THREE.Color(1, 0, 200 / 255),       // rgb(255, 0, 200) - brighter pink
-    new THREE.Color(0, 230 / 255, 1),       // rgb(0, 230, 255) - brighter cyan
-    new THREE.Color(1, 220 / 255, 0)        // rgb(255, 220, 0) - brighter yellow
-  ];
-  const targetOpacity = 0.3; // Adjusted opacity as per user preference
+  // Define both light and dark mode color sets
+  const colorSchemes = {
+    light: [
+      new THREE.Color(1, 0, 200 / 255),      // rgb(255, 0, 200) - brighter pink
+      new THREE.Color(0, 230 / 255, 1),      // rgb(0, 230, 255) - brighter cyan
+      new THREE.Color(1, 220 / 255, 0)       // rgb(255, 220, 0) - brighter yellow
+    ],
+    dark: [
+      new THREE.Color(1, 100 / 255, 250 / 255),   // rgb(255, 100, 250) - lighter pink
+      new THREE.Color(140 / 255, 1, 1),           // rgb(140, 255, 255) - lighter cyan
+      new THREE.Color(1, 250 / 255, 150 / 255)    // rgb(255, 250, 150) - lighter yellow/gold
+    ]
+  };
+  
+  // Initialize with default colors (will be updated based on theme)
+  let targetColors = [...colorSchemes.light];
+  
+  // Increased opacity for dark mode to make colors more visible
+  const opacitySettings = {
+    light: 0.3,
+    dark: 0.5
+  };
+  
+  let targetOpacity = opacitySettings.light;
+  
+  // Function to update colors based on theme
+  function updateThemeColors() {
+    const isDarkMode = document.body.classList.contains('dark');
+    targetColors = isDarkMode ? colorSchemes.dark : colorSchemes.light;
+    targetOpacity = isDarkMode ? opacitySettings.dark : opacitySettings.light;
+    
+    // Update materials if they've been created
+    if (modelMaterials.length > 0) {
+      modelMaterials.forEach(material => {
+        // Update opacity
+        material.opacity = targetOpacity;
+        
+        // Optionally, you can immediately update the color to the first color in the new scheme
+        // material.color.copy(targetColors[0]);
+      });
+    }
+  }
   // --- --------------------------------- ---
 
   // --- Lighting Palette ---
@@ -126,13 +160,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
       scene.add(model);
 
+      // Apply the current theme colors after the model is loaded
+      updateThemeColors();
+
       // Start animation ONLY after the model is processed and added
       animate();
     },
     undefined,
     (error) => {
       console.error('An error happened loading the GLTF model:', error);
-      container.innerHTML = `<p style="color: #ffffff;">Error loading 3D model.</p>`; // Use white for error
+      container.innerHTML = `<p style="color: var(--text-color);">Error loading 3D model.</p>`; // Use theme color for error
     }
   );
 
@@ -228,4 +265,28 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   window.addEventListener('resize', onWindowResize);
   onWindowResize(); // Initial size setup
+
+  // Listen for theme changes
+  // 1. Detect initial theme
+  updateThemeColors();
+  
+  // 2. Listen for theme toggle clicks
+  const themeToggle = document.getElementById('dark-mode-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      // The theme toggle will change body class, so we update colors after a short delay
+      setTimeout(updateThemeColors, 50);
+    });
+  }
+  
+  // 3. Set up a MutationObserver to detect theme changes via class changes
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === 'class') {
+        updateThemeColors();
+      }
+    });
+  });
+  
+  observer.observe(document.body, { attributes: true });
 });
