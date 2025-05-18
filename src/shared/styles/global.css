@@ -1,5 +1,20 @@
 @layer base, typography, components, utilities;
 
+@layer utilities {
+  /* Visually hide content but keep it accessible to screen readers */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
 @layer base {
   :root {
     color-scheme: light dark;

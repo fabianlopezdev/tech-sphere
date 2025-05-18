@@ -18,7 +18,7 @@ import Subtitle from "@features/coming-soon/Subtitle.astro";
 </script>
 
 <BaseLayout pageTitle="Tech Sphere" pageDescription="La web de Tech Sphere està en construcció">
-	<button class="hide-at-start" id="dark-mode-toggle" aria-label="Toggle dark mode" type="button">
+	<button class="hide-at-start" id="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
 		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
 			<path d="M21 12.79A9 9 0 0111.21 3 7 7 0 1012 21a9 9 0 009-8.21z"/>
 	  </svg>
@@ -39,8 +39,8 @@ import Subtitle from "@features/coming-soon/Subtitle.astro";
     
 	</main>
   <footer class="hide-at-start">
-        <p>Contact us at <a href="mailto:admin@tech-sphere.io">admin@tech-sphere.io</a></p>
-      <small>© <span id="current-year"></span> Tech Sphere S.L. All rights reserved.</small>
+        <p>Contact us at <a href="mailto:admin@tech-sphere.io" aria-label="Send email to Tech Sphere" rel="noopener" class="contact-link">admin@tech-sphere.io</a></p>
+      <small>© <span id="current-year"></span> Tech Sphere S.L. <span lang="en">All rights reserved.</span></small>
     </footer>
 </BaseLayout>
 

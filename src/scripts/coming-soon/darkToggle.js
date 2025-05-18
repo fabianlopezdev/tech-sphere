@@ -29,8 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // Apply the new scheme
       applyColorScheme(currentScheme);
       
-      // Update the icon
+      // Update the icon and accessibility state
       toggle.innerHTML = currentScheme === 'dark' ? sunIcon : moonIcon;
+      toggle.setAttribute('aria-pressed', currentScheme === 'dark');
       
       // Save the preference
       localStorage.setItem('colorScheme', currentScheme);
