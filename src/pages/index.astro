@@ -7,20 +7,24 @@ import Subtitle from "@features/coming-soon/Subtitle.astro";
 
 ---
 
-<script src="/src/scripts/coming-soon/darkToggle"></script>
+<script src="../scripts/coming-soon/darkToggle.js"></script>
+<script src="../scripts/coming-soon/titlePreloader.js"></script>
 <script>
-  const yearEl = document.getElementById('current-year');
-  if (yearEl) yearEl.textContent = `${new Date().getFullYear()}`;
+  // Simple script for updating the copyright year
+  document.addEventListener('DOMContentLoaded', () => {
+    const yearEl = document.getElementById('current-year');
+    if (yearEl) yearEl.textContent = `${new Date().getFullYear()}`;
+  });
 </script>
 
 <BaseLayout pageTitle="Tech Sphere" pageDescription="La web de Tech Sphere està en construcció">
-	<button class="hide-at-start" id="dark-mode-toggle" aria-label="Toggle dark mode">
+	<button class="hide-at-start" id="dark-mode-toggle" aria-label="Toggle dark mode" type="button">
 		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
 			<path d="M21 12.79A9 9 0 0111.21 3 7 7 0 1012 21a9 9 0 009-8.21z"/>
 	  </svg>
 	</button>
 
-	<main>
+	<main id="main-content">
     <div class="preloader">
       <TitleWPreloader />
       <TechSphereViewer />
@@ -43,7 +47,7 @@ import Subtitle from "@features/coming-soon/Subtitle.astro";
 <style>
 
 a {
-  color: gray;
+  color: var(--color-accent);
 }
 
 main {
@@ -68,10 +72,19 @@ main {
   opacity: 0;
   visibility: hidden;
   overflow: hidden;
-  transition: opacity 0.6s ease-in-out 0.1s,
-              visibility 0.6s ease-in-out 0.1s,
-              max-height 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition: opacity var(--transition-medium),
+              visibility var(--transition-medium);
+  will-change: opacity, visibility;
 }
+
+/* Add reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .hide-at-start {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Use modern CSS attributes for improved performance */
 
 .hide-at-start.visible {
   opacity: 1;
@@ -80,16 +93,17 @@ main {
 }
 
 /* New footer container styles */
-.footer-container {
-  width: 100%;
-  margin-top: auto; /* Push footer to bottom */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1; /* Take up all available space */
-  min-height: 30vh; /* Ensure a minimum height for the footer area */
-}
+footer {
+    width: 100%;
+    margin-block-start: auto; /* Push footer to bottom */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* Take up all available space */
+    min-block-size: 30dvh; /* Ensure a minimum height for the footer area using dynamic viewport height */
+    padding-block: var(--space-md);
+  }
 
 /* Center the footer content vertically */
 
@@ -103,12 +117,12 @@ main {
   cursor: pointer;
 
   /* --- Button Appearance --- */
-  background-color: var(--button-bg); /* Use theme variable */
-  border: none; /* Remove default border */
+  background-color: var(--color-bg-light); /* Use theme variable */
+  border: 1px solid var(--color-accent); /* Subtle border */
   border-radius: 50%; /* Keep it circular */
-  width: 48px;  /* Set fixed size for consistency */
-  height: 48px; /* Set fixed size for consistency */
-  color: var(--button-icon-color); /* Control SVG color via text color */
+  width: 3rem;  /* Use rem for consistency */
+  height: 3rem; /* Use rem for consistency */
+  color: var(--color-text-dark); /* Control SVG color via text color */
 
   /* --- Center SVG inside Button --- */
   display: flex;
@@ -116,8 +130,8 @@ main {
   justify-content: center;
 
   /* --- 3D Effect - Resting State --- */
-  box-shadow: 3px 3px 6px var(--button-shadow), /* Main shadow */
-              -1px -1px 3px rgba(255, 255, 255, 0.1); /* Subtle highlight (optional) */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* More subtle, modern shadow */
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 
   /* --- Smooth Transitions --- */
   transition: background-color 0.3s ease,
@@ -128,18 +142,25 @@ main {
 
 /* --- 3D Effect - Hover State --- */
 #dark-mode-toggle:hover {
-  box-shadow: 4px 4px 8px var(--button-shadow-hover), /* Slightly larger/softer shadow */
-              -1px -1px 3px rgba(255, 255, 255, 0.1);
-  /* Optional: lift effect */
-  /* transform: translateY(-1px); */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transform: translateY(-0.125rem);
 }
 
 /* --- 3D Effect - Active (Pressed) State --- */
 #dark-mode-toggle:active {
-  box-shadow: inset 2px 2px 4px var(--button-shadow-active), /* Inset shadow for pressed look */
-              1px 1px 2px rgba(0, 0, 0, 0.2); /* Smaller outer shadow */
-  transform: translateY(1px); /* Simulate button moving down */
-  color: var(--text-color); /* Optional: make icon slightly brighter/dimmer */
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+  transform: translateY(0.125rem); /* Simulate button moving down */
+}
+
+/* Support for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  #dark-mode-toggle {
+    transition: none;
+  }
+  #dark-mode-toggle:hover,
+  #dark-mode-toggle:active {
+    transform: none;
+  }
 }
 
 /* --- Style the SVG inside the button --- */
