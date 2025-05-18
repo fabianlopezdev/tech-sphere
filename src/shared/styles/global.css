@@ -3,34 +3,35 @@
 @layer base {
   :root {
     color-scheme: light dark;
-    
+
     /* Colors */
     --color-bg-light: #f2f2f2;
     --color-bg-dark: #111;
     --color-text-dark: #000;
     --color-text-light: #fff;
-    --color-accent: #8C8373;
-    
+    --color-accent: #8c8373;
+    --color-focus: #65594C; /* Darker version of accent color for focus indicators */
+
     /* Spacing */
     --space-xs: clamp(0.5rem, 0.45rem + 0.25vw, 0.75rem);
     --space-sm: clamp(0.75rem, 0.65rem + 0.5vw, 1.25rem);
     --space-md: clamp(1.25rem, 1rem + 1.25vw, 2.5rem);
     --space-lg: clamp(2rem, 1.75rem + 1.25vw, 3.25rem);
     --space-xl: clamp(3rem, 2.5rem + 2.5vw, 5.5rem);
-    
+
     /* Typography */
-    --font-primary: 'Inter', system-ui, sans-serif;
+    --font-primary: "Inter", system-ui, sans-serif;
     --font-size-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
     --font-size-base: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
     --font-size-lg: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
     --font-size-xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem);
     --font-size-2xl: clamp(1.875rem, 1.65rem + 1.125vw, 2.5rem);
-    
+
     /* Animation */
     --transition-fast: 150ms ease;
     --transition-medium: 300ms ease;
     --transition-slow: 500ms ease;
-    
+
     /* Borders & Shadows */
     --border-radius-sm: 0.25rem;
     --border-radius-md: 0.5rem;
@@ -38,6 +39,25 @@
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Improved focus styles for better keyboard navigation */
+  :focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 3px;
+    border-radius: 0.25rem;
+  }
+
+  /* Hide the default focus outline for mouse users, but keep it for keyboard users */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Ensure buttons and links have visible focus states */
+  a:focus-visible, button:focus-visible {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
   }
 
   *,
@@ -55,7 +75,7 @@
     background-color: light-dark(var(--color-bg-light), var(--color-bg-dark));
     color: light-dark(var(--color-text-dark), var(--color-text-light));
     transition: background-color var(--transition-medium),
-                color var(--transition-medium);
+      color var(--transition-medium);
     margin: 0;
   }
 
