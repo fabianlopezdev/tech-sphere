@@ -1,0 +1,60 @@
+/* Morphing toggle animation styles */
+
+.morphing-toggle {
+  position: relative;
+  cursor: pointer;
+  overflow: visible;
+}
+
+.morphing-toggle__moon,
+.morphing-toggle__sun,
+.morphing-toggle__rays {
+  transform-origin: center;
+  transition: transform var(--transition-medium),
+              opacity var(--transition-medium),
+              fill var(--transition-medium);
+}
+
+/* Moon shape transforms */
+.morphing-toggle__moon {
+  transform-box: fill-box;
+}
+
+/* Sun center circle */
+.morphing-toggle__sun {
+  transform-box: fill-box;
+  transform: scale(0);
+  opacity: 0;
+}
+
+/* Sun rays */
+.morphing-toggle__rays {
+  transform-box: fill-box;
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+/* Dark mode state */
+.dark .morphing-toggle__moon {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.dark .morphing-toggle__sun {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.dark .morphing-toggle__rays {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .morphing-toggle__moon,
+  .morphing-toggle__sun,
+  .morphing-toggle__rays {
+    transition-duration: 0.01ms !important;
+  }
+}
