@@ -1,10 +1,9 @@
 ---
-import CarouselBanner from "@features/coming-soon/CarouselBanner.astro";
-import BaseLayout from "@layouts/BaseLayout.astro";
-import TechSphereViewer from "@features/coming-soon/TechSphereViewer.astro";
-import TitleWPreloader from "@features/coming-soon/TitleWPreloader.astro";
-import Subtitle from "@features/coming-soon/Subtitle.astro";
-
+import CarouselBanner from '@features/coming-soon/CarouselBanner.astro'
+import BaseLayout from '@layouts/BaseLayout.astro'
+import TechSphereViewer from '@features/coming-soon/TechSphereViewer.astro'
+import TitleWPreloader from '@features/coming-soon/TitleWPreloader.astro'
+import Subtitle from '@features/coming-soon/Subtitle.astro'
 ---
 
 <script src="../scripts/coming-soon/darkToggle.js"></script>
@@ -12,88 +11,103 @@ import Subtitle from "@features/coming-soon/Subtitle.astro";
 <script>
   // Simple script for updating the copyright year
   document.addEventListener('DOMContentLoaded', () => {
-    const yearEl = document.getElementById('current-year');
-    if (yearEl) yearEl.textContent = `${new Date().getFullYear()}`;
-  });
+    const yearEl = document.getElementById('current-year')
+    if (yearEl) yearEl.textContent = `${new Date().getFullYear()}`
+  })
 </script>
 
 <BaseLayout pageTitle="Tech Sphere" pageDescription="La web de Tech Sphere està en construcció">
-	<button class="hide-at-start" id="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
-		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-			<path d="M21 12.79A9 9 0 0111.21 3 7 7 0 1012 21a9 9 0 009-8.21z"/>
-	  </svg>
-	</button>
+  <button
+    class="hide-at-start"
+    id="dark-mode-toggle"
+    aria-label="Toggle dark mode"
+    aria-pressed="false"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path d="M21 12.79A9 9 0 0111.21 3 7 7 0 1012 21a9 9 0 009-8.21z"></path>
+    </svg>
+  </button>
 
-	<main id="main-content">
+  <main id="main-content">
     <div class="preloader">
       <TitleWPreloader />
       <TechSphereViewer />
     </div>
-      
-		<div class="hide-at-start">
-			<Subtitle/>
-			<CarouselBanner />
-			
-		</div>
-    
-    
-	</main>
+
+    <div class="hide-at-start">
+      <Subtitle />
+      <CarouselBanner />
+    </div>
+  </main>
   <footer class="hide-at-start">
-        <p>Contact us at <a href="mailto:admin@tech-sphere.io" aria-label="Send email to Tech Sphere" rel="noopener" class="contact-link">admin@tech-sphere.io</a></p>
-      <small>© <span id="current-year"></span> Tech Sphere S.L. <span lang="en">All rights reserved.</span></small>
-    </footer>
+    <p>
+      Contact us at <a
+        href="mailto:admin@tech-sphere.io"
+        aria-label="Send email to Tech Sphere"
+        rel="noopener"
+        class="contact-link">admin@tech-sphere.io</a>
+    </p>
+    <small
+      >© <span id="current-year"></span> Tech Sphere S.L. <span lang="en"
+        >All rights reserved.</span
+      ></small
+    >
+  </footer>
 </BaseLayout>
 
 <style>
-
-a {
-  color: var(--color-accent);
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  text-align: center;
-
-}
-
-.content {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-}
-
-.hide-at-start {
-  opacity: 0;
-  visibility: hidden;
-  overflow: hidden;
-  transition: opacity var(--transition-medium),
-              visibility var(--transition-medium);
-  will-change: opacity, visibility;
-}
-
-/* Add reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .hide-at-start {
-    transition-duration: 0.01ms !important;
+  a {
+    color: var(--color-accent);
   }
-}
 
-/* Use modern CSS attributes for improved performance */
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+  }
 
-.hide-at-start.visible {
-  opacity: 1;
-  visibility: visible;
+  .content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-}
+  .hide-at-start {
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    transition:
+      opacity var(--transition-medium),
+      visibility var(--transition-medium);
+    will-change: opacity, visibility;
+  }
 
-/* New footer container styles */
-footer {
+  /* Add reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .hide-at-start {
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Use modern CSS attributes for improved performance */
+
+  .hide-at-start.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* New footer container styles */
+  footer {
     width: 100%;
     margin-block-start: auto; /* Push footer to bottom */
     display: flex;
@@ -105,78 +119,78 @@ footer {
     padding-block: var(--space-md);
   }
 
-/* Center the footer content vertically */
+  /* Center the footer content vertically */
 
-
-/* --- Dark Mode Toggle Button Styles --- */
-#dark-mode-toggle {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 100;
-  cursor: pointer;
-
-  /* --- Button Appearance --- */
-  background-color: var(--color-bg-light); /* Use theme variable */
-  border: 1px solid var(--color-accent); /* Subtle border */
-  border-radius: 50%; /* Keep it circular */
-  width: 3rem;  /* Use rem for consistency */
-  height: 3rem; /* Use rem for consistency */
-  color: var(--color-text-dark); /* Control SVG color via text color */
-
-  /* --- Center SVG inside Button --- */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  /* --- 3D Effect - Resting State --- */
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* More subtle, modern shadow */
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-
-  /* --- Smooth Transitions --- */
-  transition: background-color 0.3s ease,
-              color 0.3s ease,
-              box-shadow 0.15s ease-out,
-              transform 0.15s ease-out;
-}
-
-/* --- 3D Effect - Hover State --- */
-#dark-mode-toggle:hover {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  transform: translateY(-0.125rem);
-}
-
-/* --- 3D Effect - Active (Pressed) State --- */
-#dark-mode-toggle:active {
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
-  transform: translateY(0.125rem); /* Simulate button moving down */
-}
-
-/* Support for reduced motion */
-@media (prefers-reduced-motion: reduce) {
+  /* --- Dark Mode Toggle Button Styles --- */
   #dark-mode-toggle {
-    transition: none;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100;
+    cursor: pointer;
+
+    /* --- Button Appearance --- */
+    background-color: var(--color-bg-light); /* Use theme variable */
+    border: 1px solid var(--color-accent); /* Subtle border */
+    border-radius: 50%; /* Keep it circular */
+    width: 3rem; /* Use rem for consistency */
+    height: 3rem; /* Use rem for consistency */
+    color: var(--color-text-dark); /* Control SVG color via text color */
+
+    /* --- Center SVG inside Button --- */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* --- 3D Effect - Resting State --- */
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* More subtle, modern shadow */
+    transition:
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast);
+
+    /* --- Smooth Transitions --- */
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      box-shadow 0.15s ease-out,
+      transform 0.15s ease-out;
   }
-  #dark-mode-toggle:hover,
+
+  /* --- 3D Effect - Hover State --- */
+  #dark-mode-toggle:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    transform: translateY(-0.125rem);
+  }
+
+  /* --- 3D Effect - Active (Pressed) State --- */
   #dark-mode-toggle:active {
-    transform: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+    transform: translateY(0.125rem); /* Simulate button moving down */
   }
-}
 
-/* --- Style the SVG inside the button --- */
-#dark-mode-toggle svg {
-	width: 24px; /* Keep original size or adjust if needed */
-	height: 24px;
-	/* fill: currentColor; */ /* Let the button's 'color' style control the SVG fill */
+  /* Support for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    #dark-mode-toggle {
+      transition: none;
+    }
+    #dark-mode-toggle:hover,
+    #dark-mode-toggle:active {
+      transform: none;
+    }
+  }
+
+  /* --- Style the SVG inside the button --- */
+  #dark-mode-toggle svg {
+    width: 24px; /* Keep original size or adjust if needed */
+    height: 24px;
+    /* fill: currentColor; */ /* Let the button's 'color' style control the SVG fill */
     /* color is inherited now, no need for fill directly here unless overriding */
-}
+  }
 
-
-.consent-label {
-  display: flex;
-  align-items: center;
-  font-size: 0.8rem;
-  margin-top: 0.5rem;
-}
-
+  .consent-label {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
 </style>
