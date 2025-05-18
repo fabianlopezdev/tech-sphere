@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const titleElement = document.getElementById('main-title');
-    const contentWrapper = document.getElementById('main-content-wrapper');
-  
-    if (!titleElement || !contentWrapper) return;
-  
-    // --- Configuration ---
-    const fontsToCycle = [
+  const titleElement = document.getElementById('main-title');
+  const contentWrappers = document.querySelectorAll('.hide-at-start');
+
+  // bail out if no title or no wrappers found
+  if (!titleElement || contentWrappers.length === 0) return;
+
+  // --- Configuration ---
+  const fontsToCycle =  [
       "'Courier New', Courier, monospace",
       "'Times New Roman', Times, serif",
       "'Brush Script MT', cursive",
@@ -15,64 +16,59 @@ document.addEventListener('DOMContentLoaded', () => {
       "'Comic Sans MS', 'Comic Sans', cursive",
       "Arial, Helvetica, sans-serif"
     ];
-    const finalFontFamily = getComputedStyle(titleElement).fontFamily;
-    const finalLetterSpacing = '-0.07em';
   
-    const cycleSpeed = 100;
-    const cycleDuration = 1200;
-    const startDelay = 500;
-    const contentFadeInDelay = 150; // Delay before starting wrapper transitions
-    // --- NEW: Duration of the main-content-wrapper max-height transition ---
-    const wrapperTransitionDuration = 700; // 0.7s in CSS -> 700ms
-    // --- End Configuration ---
-  
-    let animationInterval = null;
-    let startTime = null;
-  
-    function setFinalTitleStyleAndShowContent() {
+  const finalFontFamily   = getComputedStyle(titleElement).fontFamily;
+  const finalLetterSpacing = '-0.07em';
+  const cycleSpeed            = 100;
+  const cycleDuration         = 1200;
+  const startDelay            = 500;
+  const contentFadeInDelay    = 150;
+  const wrapperTransitionDuration = 700;
+  // --- End Config ---
+
+  let animationInterval = null;
+  let startTime         = null;
+
+  function setFinalTitleStyleAndShowContent() {
     if (animationInterval) {
       clearInterval(animationInterval);
       animationInterval = null;
     }
-    titleElement.style.fontFamily   = finalFontFamily;
+    titleElement.style.fontFamily    = finalFontFamily;
     titleElement.style.letterSpacing = finalLetterSpacing;
-  
-    // prepare the transitionend handler
-    const onEnd = e => {
-      if (e.propertyName === 'max-height') {
-        console.log('Wrapper expanded — dispatching resize');
-  
-        contentWrapper.removeEventListener('transitionend', onEnd);
-      }
-    };
-  
-    // 1) listen first…
-    contentWrapper.addEventListener('transitionend', onEnd);
-    // 2) then trigger the transition
-    contentWrapper.classList.add('visible');
+
+    // for each wrapper, listen for its transition and then show it
+    contentWrappers.forEach(wrapper => {
+      const onEnd = e => {
+        if (e.propertyName === 'max-height') {
+          wrapper.removeEventListener('transitionend', onEnd);
+          // you could dispatch a resize here if needed:
+          // window.dispatchEvent(new Event('resize'));
+        }
+      };
+      wrapper.addEventListener('transitionend', onEnd);
+      wrapper.classList.add('visible');
+    });
   }
-  
-    function changeFont() {
-      const randomIndex = Math.floor(Math.random() * fontsToCycle.length);
-      titleElement.style.fontFamily = fontsToCycle[randomIndex];
-      titleElement.style.letterSpacing = 'normal';
-  
-      if (Date.now() - startTime >= cycleDuration) {
-        setFinalTitleStyleAndShowContent();
-      }
+
+  function changeFont() {
+    const randomIndex = Math.floor(Math.random() * fontsToCycle.length);
+    titleElement.style.fontFamily    = fontsToCycle[randomIndex];
+    titleElement.style.letterSpacing = 'normal';
+
+    if (Date.now() - startTime >= cycleDuration) {
+      setFinalTitleStyleAndShowContent();
     }
-  
+  }
+
+  setTimeout(() => {
+    startTime = Date.now();
+    titleElement.style.letterSpacing = 'normal';
+    animationInterval = setInterval(changeFont, cycleSpeed);
+
+    // Failsafe to show content no matter what
     setTimeout(() => {
-      startTime = Date.now();
-      titleElement.style.letterSpacing = 'normal';
-      animationInterval = setInterval(changeFont, cycleSpeed);
-  
-      // Failsafe timeout - ensure content appears even if interval glitches
-      // Make sure this timeout is long enough for everything
-      setTimeout(() => {
-          setFinalTitleStyleAndShowContent();
-      }, cycleDuration + startDelay + contentFadeInDelay + wrapperTransitionDuration + 100); // Adjusted failsafe
-  
-    }, startDelay);
-  
-  });
+      setFinalTitleStyleAndShowContent();
+    }, cycleDuration + startDelay + contentFadeInDelay + wrapperTransitionDuration + 100);
+  }, startDelay);
+});
