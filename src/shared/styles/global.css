@@ -25,7 +25,7 @@
     --color-text-dark: #000;
     --color-text-light: #fff;
     --color-accent: #8c8373;
-    --color-focus: #65594C; /* Darker version of accent color for focus indicators */
+    --color-focus: #65594c; /* Darker version of accent color for focus indicators */
 
     /* Spacing */
     --space-xs: clamp(0.5rem, 0.45rem + 0.25vw, 0.75rem);
@@ -35,7 +35,7 @@
     --space-xl: clamp(3rem, 2.5rem + 2.5vw, 5.5rem);
 
     /* Typography */
-    --font-primary: "Inter", system-ui, sans-serif;
+    --font-primary: 'Inter', system-ui, sans-serif;
     --font-size-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
     --font-size-base: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
     --font-size-lg: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
@@ -69,7 +69,8 @@
   }
 
   /* Ensure buttons and links have visible focus states */
-  a:focus-visible, button:focus-visible {
+  a:focus-visible,
+  button:focus-visible {
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
@@ -89,7 +90,8 @@
     font-family: var(--font-primary);
     background-color: light-dark(var(--color-bg-light), var(--color-bg-dark));
     color: light-dark(var(--color-text-dark), var(--color-text-light));
-    transition: background-color var(--transition-medium),
+    transition:
+      background-color var(--transition-medium),
       color var(--transition-medium);
     margin: 0;
   }
@@ -151,7 +153,7 @@
     text-wrap: pretty;
   }
 
-  [role="list"] {
+  [role='list'] {
     list-style: none;
     margin: 0;
     padding: 0;
