@@ -1,5 +1,5 @@
 ---
-import "@styles/global.css";
+import "@shared/styles/global.css";
 
 const {pageTitle = "Tech Sphere", pageDescription = "Benvinguts a la web de Tech Sphere" } = Astro.props;
 ---
@@ -8,9 +8,9 @@ const {pageTitle = "Tech Sphere", pageDescription = "Benvinguts a la web de Tech
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Lobster&family=YourFinalFontName&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Lobster&family=YourFinalFontName&display=swap" rel="stylesheet">
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
@@ -22,19 +22,3 @@ const {pageTitle = "Tech Sphere", pageDescription = "Benvinguts a la web de Tech
 	</body>
 </html>
 
-<style>
-    body {
-  display: grid;
-min-height: 100dvh;
-grid-template-rows: auto 1fr auto;
-font-family: 'Inter', sans-serif;
-  background-color: var(--bg-light);
-  color: var(--text-dark);
-  transition: background-color 0.3s, color 0.3s;
-}
-
-body.dark {
-  background-color: var(--bg-dark);
-  color: var(--text-light);
-}
-</style>

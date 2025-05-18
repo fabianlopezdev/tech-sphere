@@ -13,7 +13,9 @@
       "@styles/*": ["src/styles/*"],
       "@types/*": ["src/types/*"],
       "@services/*": ["src/services/*"],
-      "@scripts/*": ["src/scripts/*"]
+      "@scripts/*": ["src/scripts/*"],
+      "@features/*": ["src/features/*"],
+      "@shared/*": ["src/shared/*"]
     }
   }
 }
