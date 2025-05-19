@@ -35,13 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Calculate rotation values (limited to small angles for subtle effect)
     // Reversed direction: positive Y makes negative rotateX and vice versa
-    const rotateX = ((y - centerY) / centerY) * 8 // Max 8 degrees rotation, reversed
-    const rotateY = ((x - centerX) / centerX) * -8 // Max 8 degrees rotation, reversed
+    const rotateX = ((y - centerY) / centerY) * 3 // Max 3 degrees rotation, reversed
+    const rotateY = ((x - centerX) / centerX) * -3 // Max 3 degrees rotation, reversed
     
     // Calculate translation values (limited to small movements for subtle effect)
     // Move in the opposite direction of the mouse position
-    const translateX = ((x - centerX) / centerX) * -5 // Max 5px movement
-    const translateY = ((y - centerY) / centerY) * -5 // Max 5px movement
+    const translateX = ((x - centerX) / centerX) * -2 // Max 2px movement
+    const translateY = ((y - centerY) / centerY) * -2 // Max 2px movement
     
     // Apply the transformation with both rotation and translation
     this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate(${translateX}px, ${translateY}px)`
@@ -58,8 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
    * Sets up the initial state for the button tilt effect
    */
   function setInitialState() {
-    // Use a faster transition for the effect to feel more responsive
-    this.style.transition = 'transform 100ms ease-out'
+    // Use a smooth transition for a subtle effect
+    this.style.transition = 'transform 150ms cubic-bezier(0.25, 0.1, 0.25, 1)'
     resetTilt.call(this)
   }
 })
