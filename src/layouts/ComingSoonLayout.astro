@@ -18,6 +18,7 @@ const t = (key: string) => getTranslation(locale, key)
 <script src="@scripts/coming-soon/darkToggle.js"></script>
 <script src="@scripts/coming-soon/languageSwitcher.js"></script>
 <script src="@scripts/coming-soon/titlePreloader.js"></script>
+<script src="@scripts/shared/buttonTiltEffect.js"></script>
 <script>
   // Simple script for updating the copyright year
   document.addEventListener('DOMContentLoaded', () => {
@@ -30,7 +31,7 @@ const t = (key: string) => getTranslation(locale, key)
   <div class="top-controls">
     <!-- Dark Mode Toggle -->
     <button
-      class="hide-at-start control-button"
+      class="hide-at-start control-button tilt-effect"
       id="dark-mode-toggle"
       aria-label={t('comingSoon.darkModeToggle.ariaLabelInitial')}
       data-label-to-dark={t('comingSoon.darkModeToggle.ariaLabelToDark')}
@@ -123,7 +124,7 @@ const t = (key: string) => getTranslation(locale, key)
 
     <!-- Language Switcher -->
     <button
-      class="hide-at-start control-button"
+      class="hide-at-start control-button tilt-effect"
       id="language-switcher"
       aria-label={`${t('comingSoon.languageSwitcher.currentLanguageIs')} ${t(`languages.${locale}`)}`}
     >
