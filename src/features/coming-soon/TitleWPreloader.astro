@@ -6,36 +6,89 @@ const { title = 'TECH', showPreloader = true, className = '' } = props
 const titleParts = title.split(' ')
 const mainPart = titleParts[0] || 'TECH'
 const secondPart = titleParts[1] || 'SPHERE'
+
+// Get the dark mode state from the document
+const isDark = typeof document !== 'undefined' 
+  ? document.documentElement.classList.contains('dark') 
+  : false;
 ---
 
-<script src="/src/scripts/coming-soon/titlePreloader"></script>
-
-<h1 id="main-title" class:list={['title', className]}>
-  {mainPart}<br /><span class="title-second">{secondPart}</span>
-</h1>
+<div class:list={['title-wrapper', className, { 'dark': isDark }]}>
+  <h1 class="title">
+    <span class="title-main">
+      {mainPart.split('').map((char, i) => (
+        <span class="char" style={`--i: ${i}`}>{char}</span>
+      ))}
+    </span>
+    <span class="title-second">
+      {secondPart.split('').map((char, i) => (
+        <span class="char" style={`--i: ${i}`}>{char}</span>
+      ))}
+    </span>
+  </h1>
+</div>
 
 <style>
-  .title {
-    font-size: clamp(5rem, 12vw, 10rem); /* Responsive font size */
-    margin: 0;
-    margin-block-start: var(--space-md); /* Remove extra margins that might affect centering */
+  .title-wrapper {
     text-align: center;
+    margin-block-start: var(--space-md);
+  }
+
+  .title {
+    font-size: clamp(5rem, 12vw, 10rem);
+    margin: 0;
     line-height: 0.85;
     font-family: 'YourFinalFontName', 'Arial Black', Gadget, sans-serif;
     letter-spacing: normal;
     overflow-wrap: break-word;
     max-width: 100%;
-    flex-shrink: 0; /* Prevent title from shrinking if content is large */
+    flex-shrink: 0;
   }
 
-  .title span {
+  .title-main {
     display: block;
+    color: var(--color-text-dark);
+    transition: color var(--transition-medium);
+  }
+
+  /* Target both parent and self dark mode classes */
+  :global(.dark) .title-main,
+  .dark .title-main {
+    color: #f8f8f8 !important; /* Slightly off-white for better visibility */
   }
 
   .title-second {
-    /* Adjust font size relative to the main title's clamp */
+    display: block;
     font-size: clamp(3.4rem, 8vw, 6.8rem);
     font-weight: normal;
     color: var(--color-accent);
+    letter-spacing: -0.05em;
+  }
+
+  .char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
+    animation-delay: calc(0.05s * var(--i, 0));
+  }
+
+  .title-second .char {
+    animation-delay: calc(0.3s + 0.03s * var(--i, 0));
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .char {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
   }
 </style>
