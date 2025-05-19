@@ -2,8 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const dynamicWordsElement = document.getElementById('splitflap-dynamic-words')
   if (!dynamicWordsElement) return
 
-  // --- Config ---
-  const words = [
+  const defaultEnglishWords = [
     'DESIGN',
     'DEVELOPMENT',
     'GROWTH',
@@ -14,6 +13,26 @@ document.addEventListener('DOMContentLoaded', () => {
     'SOFTWARE',
     'AI',
   ]
+
+  let words = defaultEnglishWords // Default to English words
+
+  try {
+    const wordsDataElement = document.getElementById('subtitle-dynamic-words-data')
+    if (wordsDataElement && wordsDataElement.textContent) {
+      const parsedWords = JSON.parse(wordsDataElement.textContent)
+      if (Array.isArray(parsedWords) && parsedWords.length > 0 && parsedWords.every(word => typeof word === 'string')) {
+        words = parsedWords
+      } else {
+        console.warn('[subtitle.js] Parsed dynamic words data is not a valid string array. Falling back to defaults.')
+      }
+    } else {
+      console.warn('[subtitle.js] Dynamic words data element not found or empty. Falling back to defaults.')
+    }
+  } catch (error) {
+    console.error('[subtitle.js] Error parsing dynamic words data. Falling back to defaults:', error)
+  }
+
+  // --- Config ---
   const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789· '
   const flapSpeed = 50
   const flapDurationPerLetter = 600

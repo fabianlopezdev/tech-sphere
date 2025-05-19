@@ -13,44 +13,44 @@
     "description": "Estamos trabajando en algo increíble. ¡Mantente al tanto!",
     "notifyMe": "Notifícame",
     "darkModeToggle": {
-      "ariaLabelInitial": "Toggle dark mode",
-      "ariaLabelToDark": "Switch to dark mode",
-      "ariaLabelToLight": "Switch to light mode"
+      "ariaLabelInitial": "Alternar modo oscuro",
+      "ariaLabelToDark": "Cambiar a modo oscuro",
+      "ariaLabelToLight": "Cambiar a modo claro"
     },
     "languageSwitcher": {
-      "ariaLabel": "Change language"
+      "ariaLabel": "Cambiar idioma"
     },
     "footer": {
-      "contactPrefix": "Contact us at ",
-      "emailAriaLabel": "Send email to Tech Sphere",
-      "rightsReserved": "All rights reserved."
+      "contactPrefix": "Contáctanos en ",
+      "emailAriaLabel": "Enviar correo electrónico a Tech Sphere",
+      "rightsReserved": "Todos los derechos reservados."
     }
   },
   "carouselBanner": {
     "defaultMessages": {
       "message1": "COMING SOON",
-      "message2": "STAY CURIOUS",
-      "message3": "INNOVATION IN PROGRESS"
+      "message2": "INNOVACIÓN EN PROGRESO",
+      "message3": "BE CURIOUS"
     },
-    "tooltip": "Live updates coming soon!"
+    "tooltip": "¡Actualizaciones en vivo próximamente!"
   },
   "techSphereViewer": {
-    "ariaLabel": "Tech Sphere 3D visualization"
+    "ariaLabel": "Visualización 3D de Tech Sphere"
   },
   "sphereViewer": {
     "webglNotSupported": {
-      "message1": "Your browser doesn't support 3D content.",
-      "message2": "Please try a modern browser like Chrome, Firefox, or Edge."
+      "message1": "Tu navegador no soporta contenido 3D.",
+      "message2": "Por favor, prueba un navegador moderno como Chrome, Firefox o Edge."
     },
     "sceneInitError": {
-      "title": "Oops! Something went wrong.",
-      "message1": "Unable to initialize 3D viewer.",
-      "message2": "Please try refreshing the page."
+      "title": "¡Ups! Algo salió mal.",
+      "message1": "No se pudo inicializar el visor 3D.",
+      "message2": "Por favor, intenta refrescar la página."
     },
-    "loadingModel": "Loading 3D model..."
+    "loadingModel": "Cargando modelo 3D..."
   },
   "subtitle": {
-    "defaultTextPrefix": "Your agency for",
-    "dynamicWordsList": "[\"DESIGN\", \"DEVELOPMENT\", \"GROWTH\", \"MARKETING\", \"APPS\", \"LEADS\", \"WEBSITES\", \"SOFTWARE\", \"AI\"]"
+    "defaultTextPrefix": "Tu agencia de",
+    "dynamicWordsList": "[\"DISEÑO\", \"DESARROLLO\", \"CRECIMIENTO\", \"MARKETING\", \"APPS\", \"CLIENTES\", \"SITIOS WEB\", \"SOFTWARE\", \"IA\"]"
   }
 }

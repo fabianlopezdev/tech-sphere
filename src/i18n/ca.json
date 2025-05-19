@@ -13,44 +13,44 @@
     "description": "Es venen coses increïbles. Presta atenció!",
     "notifyMe": "Notifica'm",
     "darkModeToggle": {
-      "ariaLabelInitial": "Toggle dark mode",
-      "ariaLabelToDark": "Switch to dark mode",
-      "ariaLabelToLight": "Switch to light mode"
+      "ariaLabelInitial": "Alternar mode fosc",
+      "ariaLabelToDark": "Canviar a mode fosc",
+      "ariaLabelToLight": "Canviar a mode clar"
     },
     "languageSwitcher": {
-      "ariaLabel": "Change language"
+      "ariaLabel": "Canviar idioma"
     },
     "footer": {
-      "contactPrefix": "Contact us at ",
-      "emailAriaLabel": "Send email to Tech Sphere",
-      "rightsReserved": "All rights reserved."
+      "contactPrefix": "Contacta'ns a ",
+      "emailAriaLabel": "Enviar correu electrònic a Tech Sphere",
+      "rightsReserved": "Tots els drets reservats."
     }
   },
   "carouselBanner": {
     "defaultMessages": {
       "message1": "COMING SOON",
-      "message2": "STAY CURIOUS",
-      "message3": "INNOVATION IN PROGRESS"
+      "message2": "INNOVACIÓ EN PROGRÉS",
+      "message3": "BE CURIOUS"
     },
-    "tooltip": "Live updates coming soon!"
+    "tooltip": "Es venen coses increïbles!"
   },
   "techSphereViewer": {
-    "ariaLabel": "Tech Sphere 3D visualization"
+    "ariaLabel": "Visualització 3D de Tech Sphere"
   },
   "sphereViewer": {
     "webglNotSupported": {
-      "message1": "Your browser doesn't support 3D content.",
-      "message2": "Please try a modern browser like Chrome, Firefox, or Edge."
+      "message1": "El teu navegador no suporta contingut 3D.",
+      "message2": "Si us plau, prova un navegador modern com Chrome, Firefox o Edge."
     },
     "sceneInitError": {
-      "title": "Oops! Something went wrong.",
-      "message1": "Unable to initialize 3D viewer.",
-      "message2": "Please try refreshing the page."
+      "title": "Ups! Alguna cosa ha anat malament.",
+      "message1": "No s'ha pogut inicialitzar el visor 3D.",
+      "message2": "Si us plau, intenta refrescar la pàgina."
     },
-    "loadingModel": "Loading 3D model..."
+    "loadingModel": "Carregant model 3D..."
   },
   "subtitle": {
-    "defaultTextPrefix": "Your agency for",
-    "dynamicWordsList": "[\"DESIGN\", \"DEVELOPMENT\", \"GROWTH\", \"MARKETING\", \"APPS\", \"LEADS\", \"WEBSITES\", \"SOFTWARE\", \"AI\"]"
+    "defaultTextPrefix": "La teva agència de",
+    "dynamicWordsList": "[\"DISSENY\", \"DESENVOLUPAMENT\", \"CREIXEMENT\", \"MÀRQUETING\", \"APPS\", \"CLIENTS\", \"LLOCS WEB\", \"PROGRAMARI\", \"IA\"]"
   }
 }
