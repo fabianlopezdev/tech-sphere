@@ -18,7 +18,8 @@
       "ariaLabelToLight": "Canviar a mode clar"
     },
     "languageSwitcher": {
-      "ariaLabel": "Canviar idioma"
+      "ariaLabel": "Canviar idioma",
+      "currentLanguageIs": "L'idioma actual és"
     },
     "footer": {
       "contactPrefix": "Contacta'ns a ",
@@ -49,8 +50,13 @@
     },
     "loadingModel": "Carregant model 3D..."
   },
+  "languages": {
+    "en": "Anglès",
+    "es": "Espanyol",
+    "ca": "Català"
+  },
   "subtitle": {
     "defaultTextPrefix": "La teva agència de",
-    "dynamicWordsList": "[\"DISSENY\", \"DESENVOLUPAMENT\", \"CREIXEMENT\", \"MÀRQUETING\", \"APPS\", \"CLIENTS\", \"LLOCS WEB\", \"PROGRAMARI\", \"IA\"]"
+    "dynamicWordsList": "[\"DISSENY\", \"DESENVOLUPAMENT\", \"CREIXEMENT\", \"MÀRQUETING\", \"APPS\", \"CLIENTS\", \"WEBS\", \"SOFTWARE\", \"IA\"]"
   }
 }

@@ -18,7 +18,8 @@
       "ariaLabelToLight": "Switch to light mode"
     },
     "languageSwitcher": {
-      "ariaLabel": "Change language"
+      "ariaLabel": "Change language",
+      "currentLanguageIs": "Current language is"
     },
     "footer": {
       "contactPrefix": "Contact us at ",
@@ -48,6 +49,11 @@
       "message2": "Please try refreshing the page."
     },
     "loadingModel": "Loading 3D model..."
+  },
+  "languages": {
+    "en": "English",
+    "es": "Spanish",
+    "ca": "Catalan"
   },
   "subtitle": {
     "defaultTextPrefix": "Your agency for",

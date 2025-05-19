@@ -18,7 +18,8 @@
       "ariaLabelToLight": "Cambiar a modo claro"
     },
     "languageSwitcher": {
-      "ariaLabel": "Cambiar idioma"
+      "ariaLabel": "Cambiar idioma",
+      "currentLanguageIs": "El idioma actual es"
     },
     "footer": {
       "contactPrefix": "Contáctanos en ",
@@ -32,7 +33,7 @@
       "message2": "INNOVACIÓN EN PROGRESO",
       "message3": "BE CURIOUS"
     },
-    "tooltip": "¡Actualizaciones en vivo próximamente!"
+    "tooltip": "¡Se vienen cosas increíbles!"
   },
   "techSphereViewer": {
     "ariaLabel": "Visualización 3D de Tech Sphere"
@@ -48,6 +49,11 @@
       "message2": "Por favor, intenta refrescar la página."
     },
     "loadingModel": "Cargando modelo 3D..."
+  },
+  "languages": {
+    "en": "Inglés",
+    "es": "Español",
+    "ca": "Catalán"
   },
   "subtitle": {
     "defaultTextPrefix": "Tu agencia de",

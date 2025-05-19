@@ -8,11 +8,11 @@ import { getTranslation } from '@shared/utils/i18n/useTranslation'
 import type { Locale } from '@shared/utils/i18n/types'
 
 interface Props {
-  locale: Locale;
+  locale: Locale
 }
 
-const { locale } = Astro.props;
-const t = (key: string) => getTranslation(locale, key);
+const { locale } = Astro.props
+const t = (key: string) => getTranslation(locale, key)
 ---
 
 <script src="@scripts/coming-soon/darkToggle.js"></script>
@@ -26,10 +26,7 @@ const t = (key: string) => getTranslation(locale, key);
   })
 </script>
 
-<BaseLayout 
-  pageTitle={t('site.title')} 
-  pageDescription={t('site.description')}
->
+<BaseLayout pageTitle={t('site.title')} pageDescription={t('site.description')}>
   <div class="top-controls">
     <!-- Dark Mode Toggle -->
     <button
@@ -51,36 +48,86 @@ const t = (key: string) => getTranslation(locale, key);
         <!-- Moon shape -->
         <path
           class="morphing-toggle__moon"
-          d="M21 12.79A9 9 0 0111.21 3 7 7 0 1012 21a9 9 0 009-8.21z"
-        ></path>
+          d="M21 12.79A9 9 0 0111.21 3 7 7 0 1012 21a9 9 0 009-8.21z"></path>
         <!-- Sun center circle -->
-        <circle
-          class="morphing-toggle__sun"
-          cx="12"
-          cy="12"
-          r="5"
-        ></circle>
+        <circle class="morphing-toggle__sun" cx="12" cy="12" r="5"></circle>
         <!-- Sun rays group -->
         <g class="morphing-toggle__rays">
-          <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line
+            x1="12"
+            y1="1"
+            x2="12"
+            y2="3"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+          <line
+            x1="12"
+            y1="21"
+            x2="12"
+            y2="23"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+          <line
+            x1="4.22"
+            y1="4.22"
+            x2="5.64"
+            y2="5.64"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+          <line
+            x1="18.36"
+            y1="18.36"
+            x2="19.78"
+            y2="19.78"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+          <line
+            x1="1"
+            y1="12"
+            x2="3"
+            y2="12"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+          <line
+            x1="21"
+            y1="12"
+            x2="23"
+            y2="12"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+          <line
+            x1="4.22"
+            y1="19.78"
+            x2="5.64"
+            y2="18.36"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+          <line
+            x1="18.36"
+            y1="5.64"
+            x2="19.78"
+            y2="4.22"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
         </g>
       </svg>
     </button>
-    
+
     <!-- Language Switcher -->
     <button
       class="hide-at-start control-button"
       id="language-switcher"
-      aria-label={t('comingSoon.languageSwitcher.ariaLabel')}
+      aria-label={`${t('comingSoon.languageSwitcher.currentLanguageIs')} ${t(`languages.${locale}`)}`}
     >
-      <span id="current-locale">{locale.toUpperCase()}</span>
+      <span id="current-locale" aria-hidden="true">{locale.toUpperCase()}</span>
     </button>
   </div>
 
@@ -102,13 +149,13 @@ const t = (key: string) => getTranslation(locale, key);
         href="mailto:admin@tech-sphere.io"
         aria-label={t('comingSoon.footer.emailAriaLabel')}
         rel="noopener"
-        class="contact-link">admin@tech-sphere.io</a>
+        class="contact-link">admin@tech-sphere.io</a
+      >
     </p>
     <small
-      >© <span id="current-year"></span> Tech Sphere S.L. 
+      >© <span id="current-year"></span> Tech Sphere S.L.
       {t('comingSoon.footer.rightsReserved')}
-      </small
-    >
+    </small>
   </footer>
 </BaseLayout>
 
