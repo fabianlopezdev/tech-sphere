@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * @returns {number} The total animation time
    */
   function displayWord(word: string): number {
+    if (!dynamicWordsElement) return 0
     dynamicWordsElement.innerHTML = ''
     const letters: string[] = word.split('')
     let maxDelay = 0

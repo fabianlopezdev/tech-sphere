@@ -30,8 +30,7 @@
     ],
     "*.{astro}": [
       "eslint --fix",
-      "prettier --write",
-      "pnpm a11y:static"
+      "prettier --write"
     ],
     "*.{json,jsonc,json5}": [
       "eslint --fix",

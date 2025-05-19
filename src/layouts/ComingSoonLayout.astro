@@ -31,7 +31,7 @@ const t = (key: string) => getTranslation(locale, key)
   <div class="top-controls">
     <!-- Dark Mode Toggle -->
     <button
-      class="hide-at-start control-button tilt-effect"
+      class="control-button tilt-effect"
       id="dark-mode-toggle"
       aria-label={t('comingSoon.darkModeToggle.ariaLabelInitial')}
       data-label-to-dark={t('comingSoon.darkModeToggle.ariaLabelToDark')}
@@ -124,7 +124,7 @@ const t = (key: string) => getTranslation(locale, key)
 
     <!-- Language Switcher -->
     <button
-      class="hide-at-start control-button tilt-effect"
+      class="control-button tilt-effect"
       id="language-switcher"
       aria-label={`${t('comingSoon.languageSwitcher.currentLanguageIs')} ${t(`languages.${locale}`)}`}
     >
@@ -138,12 +138,12 @@ const t = (key: string) => getTranslation(locale, key)
       <TechSphereViewer locale={locale} />
     </div>
 
-    <div class="hide-at-start">
+    <div>
       <Subtitle locale={locale} />
       <CarouselBanner locale={locale} />
     </div>
   </main>
-  <footer class="hide-at-start">
+  <footer>
     <p>
       {t('comingSoon.footer.contactPrefix')}
       <a
@@ -181,29 +181,7 @@ const t = (key: string) => getTranslation(locale, key)
     align-items: center;
   }
 
-  .hide-at-start {
-    opacity: 0;
-    visibility: hidden;
-    overflow: hidden;
-    transition:
-      opacity var(--transition-medium),
-      visibility var(--transition-medium);
-    will-change: opacity, visibility;
-  }
-
-  /* Add reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    .hide-at-start {
-      transition-duration: 0.01ms !important;
-    }
-  }
-
-  /* Use modern CSS attributes for improved performance */
-
-  .hide-at-start.visible {
-    opacity: 1;
-    visibility: visible;
-  }
+  /* CSS for hide-at-start has been removed as we no longer use the preloader */
 
   /* New footer container styles */
   footer {
