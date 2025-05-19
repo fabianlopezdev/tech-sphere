@@ -9,6 +9,7 @@ export interface Props {
 const { locale } = Astro.props
 const t = (key: string) => getTranslation(locale, key)
 
+// Prepare translations for the sphere viewer
 const sphereViewerTranslations = {
   webglNotSupportedMessage1: t('sphereViewer.webglNotSupported.message1'),
   webglNotSupportedMessage2: t('sphereViewer.webglNotSupported.message2'),
@@ -19,8 +20,30 @@ const sphereViewerTranslations = {
 }
 ---
 
-{/* This script tag will pass the translations to sphereViewer.js */}
-<script type="application/json" id="sphere-viewer-translations" set:html={JSON.stringify(sphereViewerTranslations)} />
+{/* Pass translations to sphereViewer.js via a data attribute */}
+<div
+  id="sphere-translations-data"
+  data-translations={JSON.stringify(sphereViewerTranslations)}
+  style="display: none;"
+>
+</div>
+
+{/* Update the sphereViewer.js script to read from the data attribute instead */}
+<script>
+  // This script will run after the DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    // Create a script element with the translations
+    const dataElement = document.getElementById('sphere-translations-data')
+    if (dataElement) {
+      const translationsData = dataElement.getAttribute('data-translations')
+      const scriptElement = document.createElement('script')
+      scriptElement.type = 'application/json'
+      scriptElement.id = 'sphere-viewer-translations'
+      scriptElement.textContent = translationsData
+      document.body.appendChild(scriptElement)
+    }
+  })
+</script>
 
 {/* The main script for the 3D viewer */}
 <script src="/src/scripts/coming-soon/sphereViewer.js"></script>
@@ -32,5 +55,7 @@ const sphereViewerTranslations = {
   aria-label={t('techSphereViewer.ariaLabel')}
   aria-live="polite"
 >
-  {/* Fallback content or loading messages will be injected here by sphereViewer.js using the translations provided above */}
+  {
+    /* Fallback content or loading messages will be injected here by sphereViewer.js using the translations provided above */
+  }
 </div>
