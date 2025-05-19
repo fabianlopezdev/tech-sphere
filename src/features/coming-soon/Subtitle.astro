@@ -1,11 +1,44 @@
 ---
 import { SubtitlePropsSchema, type SubtitleProps } from './types'
+import type { Locale } from '@shared/utils/i18n/types'
+import { getTranslation } from '@shared/utils/i18n/useTranslation'
 
-const props = SubtitlePropsSchema.parse(Astro.props)
-const { text = 'Your agency for', className = '' } = props
+const { locale, text: customText, dynamicWords: customDynamicWords, className = '' } = Astro.props as SubtitleProps & { locale: Locale };
+const t = (key: string) => getTranslation(locale, key);
+
+const text = customText ?? t('subtitle.defaultTextPrefix');
+
+let dynamicWords: string[];
+const defaultEnglishWords = ['DESIGN', 'DEVELOPMENT', 'GROWTH', 'MARKETING', 'APPS', 'LEADS', 'WEBSITES', 'SOFTWARE', 'AI'];
+
+if (Array.isArray(customDynamicWords) && customDynamicWords.length > 0) {
+  dynamicWords = customDynamicWords;
+} else {
+  try {
+    const translatedWordsString = t('subtitle.dynamicWordsList');
+    if (translatedWordsString) {
+      dynamicWords = JSON.parse(translatedWordsString);
+      if (!Array.isArray(dynamicWords) || dynamicWords.some(word => typeof word !== 'string')) {
+        // Fallback if parsing results in non-array or array of non-strings
+        console.warn(`[Subtitle.astro] Parsed 'subtitle.dynamicWordsList' for locale '${locale}' is not a valid string array. Falling back to defaults.`);
+        dynamicWords = defaultEnglishWords;
+      }
+    } else {
+      // Fallback if translation key is missing
+      console.warn(`[Subtitle.astro] Missing translation for 'subtitle.dynamicWordsList' in locale '${locale}'. Falling back to defaults.`);
+      dynamicWords = defaultEnglishWords;
+    }
+  } catch (error) {
+    // Fallback if JSON.parse fails
+    console.error(`[Subtitle.astro] Error parsing 'subtitle.dynamicWordsList' for locale '${locale}':`, error);
+    dynamicWords = defaultEnglishWords;
+  }
+}
 ---
 
-<script src="/src/scripts/coming-soon/subtitle"></script>
+<script type="application/json" id="subtitle-dynamic-words-data" set:html={JSON.stringify(dynamicWords)}></script>
+
+<script src="/src/scripts/coming-soon/subtitle.js"></script>
 
 <h2 class:list={['subtitle', className]}>
   <span>{text}<br /> </span><span id="splitflap-dynamic-words"></span>
@@ -15,41 +48,30 @@ const { text = 'Your agency for', className = '' } = props
     margin-block-start: var(--space-sm);
     font-size: clamp(1.5rem, 3vw, 2rem); /* Responsive */
     color: var(--color-accent);
-    /* white-space: nowrap; */ /* Removed nowrap here - let children control it */
     font-weight: 400; /* Normal weight */
-    /* Add line-height here for overall consistency if needed */
-    /* line-height: 1.4; */
   }
 
   .subtitle > span:first-child {
-    /* Styles for "Your agency for<br>" */
-    /* Consider adding display: inline-block and vertical-align if needed */
-    /* display: inline-block; */
-    /* vertical-align: bottom; */ /* Match the dynamic part? */
   }
 
   .splitflap-letter {
     display: inline-block;
     text-align: center;
-    min-width: 0.6em; /* Ensures consistent letter width */
-    line-height: 1; /* Make letter height predictable within its box */
-    vertical-align: bottom; /* Align letters consistently at their bottom */
+    min-width: 0.6em; 
+    line-height: 1; 
+    vertical-align: bottom; 
   }
 
   #splitflap-dynamic-words {
-    padding-top: 0.5rem; /* This padding might contribute slightly, test removing it temporarily */
+    padding-top: 0.5rem; 
     letter-spacing: 0.1em;
     font-weight: 700;
     font-size: clamp(2rem, 5vw, 3rem);
     display: inline-block;
-
-    /* --- TRY THESE ADJUSTMENTS --- */
-    vertical-align: bottom; /* TRY THIS FIRST (or middle, or top) */
-    min-height: 1.2em; /* Keep this */
-    line-height: 1.2; /* ADD THIS (adjust value if needed, 1 or 1.2 often work) */
-    /* --- END ADJUSTMENTS --- */
-
+    vertical-align: bottom; 
+    min-height: 1.2em; 
+    line-height: 1.2; 
     min-width: 11em;
-    white-space: nowrap; /* Keep nowrap here for the dynamic word */
+    white-space: nowrap; 
   }
 </style>
