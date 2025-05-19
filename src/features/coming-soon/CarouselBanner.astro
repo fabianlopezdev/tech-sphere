@@ -14,8 +14,17 @@ const defaultMessages = [
 
 const messages = customMessages && customMessages.length > 0 ? customMessages : defaultMessages;
 
-// Duplicate messages to ensure smooth scrolling
-const displayText = messages.join(`<span class="carousel-star">${separator}</span>`)
+// Process messages to ensure they are strings, formatting objects if necessary
+const displayText = messages
+  .map(msg => {
+    if (typeof msg === 'string') {
+      return msg; // Default messages are already strings
+    }
+    // Custom messages are objects with title and description
+    // The test expects 'Custom Title 1' and 'Custom Desc 1' to be present.
+    return `${msg.title} ${msg.description}`; 
+  })
+  .join(`<span class="carousel-star">${separator}</span>`);
 ---
 
 <div class="banner-container">
