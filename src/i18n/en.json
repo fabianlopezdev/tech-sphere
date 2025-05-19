@@ -11,6 +11,46 @@
   "comingSoon": {
     "title": "Coming Soon",
     "description": "We're working on something amazing. Stay tuned!",
-    "notifyMe": "Notify Me"
+    "notifyMe": "Notify Me",
+    "darkModeToggle": {
+      "ariaLabelInitial": "Toggle dark mode",
+      "ariaLabelToDark": "Switch to dark mode",
+      "ariaLabelToLight": "Switch to light mode"
+    },
+    "languageSwitcher": {
+      "ariaLabel": "Change language"
+    },
+    "footer": {
+      "contactPrefix": "Contact us at ",
+      "emailAriaLabel": "Send email to Tech Sphere",
+      "rightsReserved": "All rights reserved."
+    }
+  },
+  "carouselBanner": {
+    "defaultMessages": {
+      "message1": "COMING SOON",
+      "message2": "STAY CURIOUS",
+      "message3": "INNOVATION IN PROGRESS"
+    },
+    "tooltip": "Live updates coming soon!"
+  },
+  "techSphereViewer": {
+    "ariaLabel": "Tech Sphere 3D visualization"
+  },
+  "sphereViewer": {
+    "webglNotSupported": {
+      "message1": "Your browser doesn't support 3D content.",
+      "message2": "Please try a modern browser like Chrome, Firefox, or Edge."
+    },
+    "sceneInitError": {
+      "title": "Oops! Something went wrong.",
+      "message1": "Unable to initialize 3D viewer.",
+      "message2": "Please try refreshing the page."
+    },
+    "loadingModel": "Loading 3D model..."
+  },
+  "subtitle": {
+    "defaultTextPrefix": "Your agency for",
+    "dynamicWordsList": "[\"DESIGN\", \"DEVELOPMENT\", \"GROWTH\", \"MARKETING\", \"APPS\", \"LEADS\", \"WEBSITES\", \"SOFTWARE\", \"AI\"]"
   }
 }
