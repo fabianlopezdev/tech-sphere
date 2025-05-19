@@ -14,7 +14,7 @@ const isWebGLSupported = () => {
       window.WebGLRenderingContext &&
       (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
     )
-  } catch (e) {
+  } catch {
     return false
   }
 }
@@ -337,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const animate = () => {
     try {
       // Request next frame first in case of errors later in function
-      const animationId = requestAnimationFrame(animate)
+      requestAnimationFrame(animate)
 
       const deltaTime = clock.getDelta() // Time since last frame
       totalElapsedTime += deltaTime
@@ -392,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
           modelMaterials.forEach((material) => {
             try {
               material.color.copy(currentColor)
-            } catch (e) {
+            } catch {
               // Fallback to direct color assignment if copy fails
               material.color.r = currentColor.r
               material.color.g = currentColor.g
