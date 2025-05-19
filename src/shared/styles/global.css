@@ -56,11 +56,24 @@
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
 
-  /* Improved focus styles for better keyboard navigation */
+  /* Keyframes for focus animations */
+  @keyframes focus-pulse {
+    0% { outline-width: 3px; outline-offset: 3px; }
+    50% { outline-width: 4px; outline-offset: 5px; }
+    100% { outline-width: 3px; outline-offset: 3px; }
+  }
+
+  @keyframes focus-fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  /* Improved focus styles with subtle animation for better keyboard navigation */
   :focus-visible {
     outline: 3px solid var(--color-focus);
     outline-offset: 3px;
     border-radius: 0.25rem;
+    animation: focus-pulse 0.3s ease-out, focus-fade-in 0.2s ease-out;
   }
 
   /* Hide the default focus outline for mouse users, but keep it for keyboard users */
@@ -68,12 +81,19 @@
     outline: none;
   }
 
-  /* Ensure buttons and links have visible focus states */
+  /* Keyframes for text decoration animation */
+  @keyframes text-decoration-appear {
+    0% { text-decoration-thickness: 0; text-underline-offset: 1px; }
+    100% { text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  }
+
+  /* Ensure buttons and links have visible focus states with animation */
   a:focus-visible,
   button:focus-visible {
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
+    animation: text-decoration-appear 0.25s ease-out;
   }
 
   *,
@@ -117,6 +137,17 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
+    }
+    
+    /* Specifically disable focus animations for users who prefer reduced motion */
+    :focus-visible,
+    a:focus-visible,
+    button:focus-visible {
+      animation: none !important;
+    }
+    
+    .hide-at-start {
+      transition-duration: 0.01ms !important;
     }
   }
 }
