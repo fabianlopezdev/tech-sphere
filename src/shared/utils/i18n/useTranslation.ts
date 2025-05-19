@@ -61,6 +61,8 @@ export function saveLocalePreference(locale: Locale): void {
 export function getTranslation(locale: Locale, key: string, params: Record<string, string | number> = {}): string {
   // Split the key by dots to access nested properties
   const keys = key.split('.');
+  // Use a more specific type than 'any', but still allow for nested objects
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let value: any = translations[locale];
 
   // Traverse the translation object
