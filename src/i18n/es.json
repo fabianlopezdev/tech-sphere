@@ -1,12 +1,11 @@
 {
-  "site": {
-    "title": "Tech Sphere",
-    "description": "Tu solución tecnológica de próxima generación"
-  },
-  "common": {
-    "loading": "Cargando...",
-    "error": "Ocurrió un error",
-    "retry": "Reintentar"
+  "carouselBanner": {
+    "defaultMessages": {
+      "message1": "COMING SOON",
+      "message2": "INNOVACIÓN EN PROGRESO",
+      "message3": "BE CURIOUS"
+    },
+    "tooltip": "¡Se vienen cosas increíbles!"
   },
   "comingSoon": {
     "title": "Próximamente",
@@ -27,16 +26,19 @@
       "rightsReserved": "Todos los derechos reservados."
     }
   },
-  "carouselBanner": {
-    "defaultMessages": {
-      "message1": "COMING SOON",
-      "message2": "INNOVACIÓN EN PROGRESO",
-      "message3": "BE CURIOUS"
-    },
-    "tooltip": "¡Se vienen cosas increíbles!"
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "retry": "Reintentar"
   },
-  "techSphereViewer": {
-    "ariaLabel": "Visualización 3D de Tech Sphere"
+  "languages": {
+    "en": "Inglés",
+    "es": "Español",
+    "ca": "Catalán"
+  },
+  "site": {
+    "title": "Tech Sphere",
+    "description": "Tu solución tecnológica de próxima generación"
   },
   "sphereViewer": {
     "webglNotSupported": {
@@ -50,13 +52,11 @@
     },
     "loadingModel": "Cargando modelo 3D..."
   },
-  "languages": {
-    "en": "Inglés",
-    "es": "Español",
-    "ca": "Catalán"
-  },
   "subtitle": {
     "defaultTextPrefix": "Tu agencia de",
     "dynamicWordsList": "[\"DISEÑO\", \"DESARROLLO\", \"CRECIMIENTO ONLINE\", \"MARKETING\", \"APPS\", \"LEADS\", \"WEB\", \"SOFTWARE\", \"IA\"]"
+  },
+  "techSphereViewer": {
+    "ariaLabel": "Visualización 3D de Tech Sphere"
   }
 }

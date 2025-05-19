@@ -1,12 +1,11 @@
 {
-  "site": {
-    "title": "Tech Sphere",
-    "description": "La teva solució tecnològica de propera generació"
-  },
-  "common": {
-    "loading": "Carregant...",
-    "error": "S'ha produït un error",
-    "retry": "Torna-ho a provar"
+  "carouselBanner": {
+    "defaultMessages": {
+      "message1": "COMING SOON",
+      "message2": "INNOVACIÓ EN PROGRÉS",
+      "message3": "BE CURIOUS"
+    },
+    "tooltip": "Es venen coses increïbles!"
   },
   "comingSoon": {
     "title": "Properament",
@@ -27,16 +26,19 @@
       "rightsReserved": "Tots els drets reservats."
     }
   },
-  "carouselBanner": {
-    "defaultMessages": {
-      "message1": "COMING SOON",
-      "message2": "INNOVACIÓ EN PROGRÉS",
-      "message3": "BE CURIOUS"
-    },
-    "tooltip": "Es venen coses increïbles!"
+  "common": {
+    "loading": "Carregant...",
+    "error": "S'ha produït un error",
+    "retry": "Torna-ho a provar"
   },
-  "techSphereViewer": {
-    "ariaLabel": "Visualització 3D de Tech Sphere"
+  "languages": {
+    "en": "Anglès",
+    "es": "Espanyol",
+    "ca": "Català"
+  },
+  "site": {
+    "title": "Tech Sphere",
+    "description": "La teva solució tecnològica de propera generació"
   },
   "sphereViewer": {
     "webglNotSupported": {
@@ -50,13 +52,11 @@
     },
     "loadingModel": "Carregant model 3D..."
   },
-  "languages": {
-    "en": "Anglès",
-    "es": "Espanyol",
-    "ca": "Català"
-  },
   "subtitle": {
     "defaultTextPrefix": "La teva agència de",
     "dynamicWordsList": "[\"DISSENY\", \"DESENVOLUPAMENT\", \"CREIXEMENT ONLINE\", \"MÀRQUETING\", \"APPS\", \"LEADS\", \"WEBS\", \"SOFTWARE\", \"IA\"]"
+  },
+  "techSphereViewer": {
+    "ariaLabel": "Visualització 3D de Tech Sphere"
   }
 }
