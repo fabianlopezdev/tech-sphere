@@ -1,9 +1,18 @@
 ---
 import { CarouselBannerPropsSchema, type CarouselBannerProps } from './types'
+import { getTranslation } from '@shared/utils/i18n/useTranslation'
+import type { Locale } from '@shared/utils/i18n/types'
 
-const props = CarouselBannerPropsSchema.parse(Astro.props)
-const { messages = ['COMING SOON', 'STAY CURIOUS', 'INNOVATION IN PROGRESS'], separator = '*' } =
-  props
+const { locale, messages: customMessages, separator = '*' } = Astro.props as CarouselBannerProps & { locale: Locale };
+const t = (key: string) => getTranslation(locale, key);
+
+const defaultMessages = [
+  t('carouselBanner.defaultMessages.message1'),
+  t('carouselBanner.defaultMessages.message2'),
+  t('carouselBanner.defaultMessages.message3'),
+];
+
+const messages = customMessages && customMessages.length > 0 ? customMessages : defaultMessages;
 
 // Duplicate messages to ensure smooth scrolling
 const displayText = messages.join(`<span class="carousel-star">${separator}</span>`)
@@ -13,7 +22,7 @@ const displayText = messages.join(`<span class="carousel-star">${separator}</spa
   <div class="carousel-banner">
     <div class="carousel-text" id="carousel-text" set:html={`${displayText} ${displayText}`} />
   </div>
-  <div class="banner-tooltip">Live updates coming soon!</div>
+  <div class="banner-tooltip">{t('carouselBanner.tooltip')}</div>
 </div>
 
 <style>
