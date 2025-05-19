@@ -2,7 +2,7 @@
 import CarouselBanner from '@features/coming-soon/CarouselBanner.astro'
 import BaseLayout from '@layouts/BaseLayout.astro'
 import TechSphereViewer from '@features/coming-soon/TechSphereViewer.astro'
-import TitleWPreloader from '@features/coming-soon/TitleWPreloader.astro'
+import AnimatedTitle from '@features/coming-soon/AnimatedTitle.astro'
 import Subtitle from '@features/coming-soon/Subtitle.astro'
 import { getTranslation } from '@shared/utils/i18n/useTranslation'
 import type { Locale } from '@shared/utils/i18n/types'
@@ -134,7 +134,7 @@ const t = (key: string) => getTranslation(locale, key)
 
   <main id="main-content">
     <div class="preloader">
-      <TitleWPreloader />
+      <AnimatedTitle />
       <TechSphereViewer locale={locale} />
     </div>
 

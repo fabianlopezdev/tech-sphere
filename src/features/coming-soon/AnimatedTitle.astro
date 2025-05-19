@@ -1,0 +1,139 @@
+---
+import { AnimatedTitlePropsSchema } from './types'
+
+const props = AnimatedTitlePropsSchema.parse(Astro.props)
+const { title = 'TECH', className = '' } = props
+const titleParts = title.split(' ')
+const mainPart = titleParts[0] || 'TECH'
+const secondPart = titleParts[1] || 'SPHERE'
+---
+
+<div id="title-wrapper" class:list={['title-wrapper', className]}>
+  <h1 class="title">
+    <span class="title-main">
+      {
+        mainPart.split('').map((char: string, i: number) => (
+          <span class="char" style={`--i: ${i}`}>
+            {char}
+          </span>
+        ))
+      }
+    </span>
+    <span class="title-second">
+      {
+        secondPart.split('').map((char: string, i: number) => (
+          <span class="char" style={`--i: ${i}`}>
+            {char}
+          </span>
+        ))
+      }
+    </span>
+  </h1>
+</div>
+
+<script>
+  // Check dark mode on the client side
+  const titleWrapper = document.getElementById('title-wrapper')
+  if (document.documentElement.classList.contains('dark') && titleWrapper) {
+    titleWrapper.classList.add('dark')
+  }
+
+  // Listen for theme changes
+  document.addEventListener('theme-changed', (e) => {
+    // Cast to CustomEvent with the expected detail structure
+    const customEvent = e as CustomEvent<{ isDark: boolean }>
+    if (customEvent.detail.isDark && titleWrapper) {
+      titleWrapper.classList.add('dark')
+    } else if (titleWrapper) {
+      titleWrapper.classList.remove('dark')
+    }
+  })
+</script>
+
+<style>
+  .title-wrapper {
+    text-align: center;
+    margin-block-start: var(--space-md);
+  }
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    font-size: clamp(2.5rem, 10vw, 5rem);
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+    margin: 0;
+    position: relative;
+  }
+
+  .title-main,
+  .title-second {
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .title-main {
+    color: var(--color-primary);
+    margin-bottom: 0.1em;
+  }
+
+  .title-second {
+    color: var(--color-secondary);
+  }
+
+  /* Character animation */
+  .char {
+    display: inline-block;
+    transform-origin: 50% 100%;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  }
+
+  /* Apply animation only when parent has animate class */
+  .title-container.animate .title-main .char {
+    animation-name: slideInUp;
+    animation-delay: calc(var(--i) * 0.05s);
+  }
+
+  .title-container.animate .title-second .char {
+    animation-name: slideInUp;
+    animation-delay: calc(0.4s + var(--i) * 0.05s);
+  }
+
+  @keyframes slideInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Dark mode styles */
+  .title-wrapper.dark .title-main {
+    color: var(--color-primary-dark);
+  }
+
+  .title-wrapper.dark .title-second {
+    color: var(--color-secondary-dark);
+  }
+
+  /* Responsive adjustments */
+  @media (min-width: 768px) {
+    .title {
+      font-size: clamp(3.5rem, 12vw, 7rem);
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .char {
+      animation-duration: 0.001ms !important;
+    }
+  }
+</style>

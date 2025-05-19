@@ -18,12 +18,11 @@ export const SubtitlePropsSchema = z
 
 export type SubtitleProps = z.infer<typeof SubtitlePropsSchema>
 
-export const TitleWithPreloaderPropsSchema = z
+export const AnimatedTitlePropsSchema = z
   .object({
     title: z.string().optional(),
-    showPreloader: z.boolean().optional(),
     className: z.string().optional(),
   })
   .passthrough()
 
-export type TitleWithPreloaderProps = z.infer<typeof TitleWithPreloaderPropsSchema>
+export type AnimatedTitleProps = z.infer<typeof AnimatedTitlePropsSchema>
