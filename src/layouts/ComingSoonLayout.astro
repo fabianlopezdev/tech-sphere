@@ -1,0 +1,252 @@
+---
+import CarouselBanner from '@features/coming-soon/CarouselBanner.astro'
+import BaseLayout from '@layouts/BaseLayout.astro'
+import TechSphereViewer from '@features/coming-soon/TechSphereViewer.astro'
+import TitleWPreloader from '@features/coming-soon/TitleWPreloader.astro'
+import Subtitle from '@features/coming-soon/Subtitle.astro'
+import { getTranslation } from '@shared/utils/i18n/useTranslation'
+import type { Locale } from '@shared/utils/i18n/types'
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = (key: string) => getTranslation(locale, key);
+---
+
+<script src="@scripts/coming-soon/darkToggle.js"></script>
+<script src="@scripts/coming-soon/languageSwitcher.js"></script>
+<script src="@scripts/coming-soon/titlePreloader.js"></script>
+<script>
+  // Simple script for updating the copyright year
+  document.addEventListener('DOMContentLoaded', () => {
+    const yearEl = document.getElementById('current-year')
+    if (yearEl) yearEl.textContent = `${new Date().getFullYear()}`
+  })
+</script>
+
+<BaseLayout 
+  pageTitle={t('site.title')} 
+  pageDescription={t('site.description')}
+>
+  <div class="top-controls">
+    <!-- Dark Mode Toggle -->
+    <button
+      class="hide-at-start control-button"
+      id="dark-mode-toggle"
+      aria-label={t('comingSoon.darkModeToggle.ariaLabelInitial')}
+      data-label-to-dark={t('comingSoon.darkModeToggle.ariaLabelToDark')}
+      data-label-to-light={t('comingSoon.darkModeToggle.ariaLabelToLight')}
+      aria-pressed="false"
+    >
+      <svg
+        class="morphing-toggle"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <!-- Moon shape -->
+        <path
+          class="morphing-toggle__moon"
+          d="M21 12.79A9 9 0 0111.21 3 7 7 0 1012 21a9 9 0 009-8.21z"
+        ></path>
+        <!-- Sun center circle -->
+        <circle
+          class="morphing-toggle__sun"
+          cx="12"
+          cy="12"
+          r="5"
+        ></circle>
+        <!-- Sun rays group -->
+        <g class="morphing-toggle__rays">
+          <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </button>
+    
+    <!-- Language Switcher -->
+    <button
+      class="hide-at-start control-button"
+      id="language-switcher"
+      aria-label={t('comingSoon.languageSwitcher.ariaLabel')}
+    >
+      <span id="current-locale">{locale.toUpperCase()}</span>
+    </button>
+  </div>
+
+  <main id="main-content">
+    <div class="preloader">
+      <TitleWPreloader />
+      <TechSphereViewer />
+    </div>
+
+    <div class="hide-at-start">
+      <Subtitle />
+      <CarouselBanner />
+    </div>
+  </main>
+  <footer class="hide-at-start">
+    <p>
+      {t('comingSoon.footer.contactPrefix')}
+      <a
+        href="mailto:admin@tech-sphere.io"
+        aria-label={t('comingSoon.footer.emailAriaLabel')}
+        rel="noopener"
+        class="contact-link">admin@tech-sphere.io</a>
+    </p>
+    <small
+      >© <span id="current-year"></span> Tech Sphere S.L. 
+      {t('comingSoon.footer.rightsReserved')}
+      </small
+    >
+  </footer>
+</BaseLayout>
+
+<style>
+  a {
+    color: var(--color-accent);
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hide-at-start {
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    transition:
+      opacity var(--transition-medium),
+      visibility var(--transition-medium);
+    will-change: opacity, visibility;
+  }
+
+  /* Add reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .hide-at-start {
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Use modern CSS attributes for improved performance */
+
+  .hide-at-start.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* New footer container styles */
+  footer {
+    width: 100%;
+    margin-block-start: auto; /* Push footer to bottom */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* Take up all available space */
+    min-block-size: 30dvh; /* Ensure a minimum height for the footer area using dynamic viewport height */
+    padding-block: var(--space-md);
+  }
+
+  /* --- Top Controls Container --- */
+  .top-controls {
+    position: absolute;
+    inset-block-start: 1rem;
+    inset-inline-end: 1rem;
+    z-index: 100;
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  /* --- Control Button Shared Styles --- */
+  .control-button {
+    cursor: pointer;
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-accent);
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    color: var(--color-text-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      box-shadow 0.15s ease-out,
+      transform 0.15s ease-out;
+  }
+
+  /* --- 3D Effect - Hover State --- */
+  .control-button:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    transform: translateY(-0.125rem);
+  }
+
+  /* --- 3D Effect - Active (Pressed) State --- */
+  .control-button:active {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+    transform: translateY(0.125rem);
+  }
+
+  /* --- Language Switcher Specific Styles --- */
+  #language-switcher {
+    font-weight: bold;
+    font-size: 0.875rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #current-locale {
+    text-transform: uppercase;
+  }
+
+  /* Support for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    #dark-mode-toggle {
+      transition: none;
+    }
+    #dark-mode-toggle:hover,
+    #dark-mode-toggle:active {
+      transform: none;
+    }
+  }
+
+  /* --- Style the SVG inside the button --- */
+  #dark-mode-toggle svg {
+    width: 24px; /* Keep original size or adjust if needed */
+    height: 24px;
+  }
+
+  .consent-label {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    margin-block-start: 0.5rem;
+  }
+</style>
