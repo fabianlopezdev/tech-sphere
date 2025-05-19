@@ -5,33 +5,21 @@
     <!-- Inner circle -->
     <circle cx="64" cy="64" r="30" class="inner-circle" />
     
-    <!-- Letter T -->
-    <path d="M54 50h20v4H66v24h-4V54h-8v-4z" class="letter" />
-    
-    <!-- Letter S -->
-    <path d="M74 62c0-3.3-2.7-6-6-6h-8c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h8c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2h-8c-1.1 0-2-.9-2-2v-2h-4v2c0 3.3 2.7 6 6 6h8c3.3 0 6-2.7 6-6v-4c0-1.1-.9-2-2-2h-8c-1.1 0-2-.9-2-2v-4c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2v2h4v-2z" class="letter" />
-    
     <style>
         .outer-circle {
-            stroke: #8c8373;
+            stroke: #000;
             fill: transparent;
         }
         .inner-circle {
-            fill: #8c8373;
-        }
-        .letter {
-            fill: #f2f2f2;
+            fill: #000;
         }
         
         @media (prefers-color-scheme: dark) {
             .outer-circle {
-                stroke: #8c8373;
+                stroke: #fff;
             }
             .inner-circle {
-                fill: #8c8373;
-            }
-            .letter {
-                fill: #111;
+                fill: #fff;
             }
         }
     </style>
