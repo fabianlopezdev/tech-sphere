@@ -3,35 +3,35 @@ import { SubtitlePropsSchema, type SubtitleProps } from './types'
 import type { Locale } from '@shared/utils/i18n/types'
 import { getTranslation } from '@shared/utils/i18n/useTranslation'
 
-const { locale, text: customText, dynamicWords: customDynamicWords, className = '' } = Astro.props as SubtitleProps & { locale: Locale };
-const t = (key: string) => getTranslation(locale, key);
+const { locale, text: customText, dynamicWords: customDynamicWords, className = '' } = Astro.props as SubtitleProps & { locale: Locale }
+const t = (key: string) => getTranslation(locale, key)
 
-const text = customText ?? t('subtitle.defaultTextPrefix');
+const text = customText ?? t('subtitle.defaultTextPrefix')
 
-let dynamicWords: string[];
-const defaultEnglishWords = ['DESIGN', 'DEVELOPMENT', 'GROWTH', 'MARKETING', 'APPS', 'LEADS', 'WEBSITES', 'SOFTWARE', 'AI'];
+let dynamicWords: string[]
+const defaultEnglishWords = ['DESIGN', 'DEVELOPMENT', 'GROWTH', 'MARKETING', 'APPS', 'LEADS', 'WEBSITES', 'SOFTWARE', 'AI']
 
 if (Array.isArray(customDynamicWords) && customDynamicWords.length > 0) {
-  dynamicWords = customDynamicWords;
+  dynamicWords = customDynamicWords
 } else {
   try {
-    const translatedWordsString = t('subtitle.dynamicWordsList');
+    const translatedWordsString = t('subtitle.dynamicWordsList')
     if (translatedWordsString) {
-      dynamicWords = JSON.parse(translatedWordsString);
+      dynamicWords = JSON.parse(translatedWordsString)
       if (!Array.isArray(dynamicWords) || dynamicWords.some(word => typeof word !== 'string')) {
         // Fallback if parsing results in non-array or array of non-strings
-        console.warn(`[Subtitle.astro] Parsed 'subtitle.dynamicWordsList' for locale '${locale}' is not a valid string array. Falling back to defaults.`);
-        dynamicWords = defaultEnglishWords;
+        console.warn(`[Subtitle.astro] Parsed 'subtitle.dynamicWordsList' for locale '${locale}' is not a valid string array. Falling back to defaults.`)
+        dynamicWords = defaultEnglishWords
       }
     } else {
       // Fallback if translation key is missing
-      console.warn(`[Subtitle.astro] Missing translation for 'subtitle.dynamicWordsList' in locale '${locale}'. Falling back to defaults.`);
-      dynamicWords = defaultEnglishWords;
+      console.warn(`[Subtitle.astro] Missing translation for 'subtitle.dynamicWordsList' in locale '${locale}'. Falling back to defaults.`)
+      dynamicWords = defaultEnglishWords
     }
   } catch (error) {
     // Fallback if JSON.parse fails
-    console.error(`[Subtitle.astro] Error parsing 'subtitle.dynamicWordsList' for locale '${locale}':`, error);
-    dynamicWords = defaultEnglishWords;
+    console.error(`[Subtitle.astro] Error parsing 'subtitle.dynamicWordsList' for locale '${locale}':`, error)
+    dynamicWords = defaultEnglishWords
   }
 }
 ---

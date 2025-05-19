@@ -10,7 +10,7 @@ const secondPart = titleParts[1] || 'SPHERE'
 // Get the dark mode state from the document
 const isDark = typeof document !== 'undefined' 
   ? document.documentElement.classList.contains('dark') 
-  : false;
+  : false
 ---
 
 <div class:list={['title-wrapper', className, { 'dark': isDark }]}>

@@ -3,28 +3,28 @@ import { CarouselBannerPropsSchema, type CarouselBannerProps } from './types'
 import { getTranslation } from '@shared/utils/i18n/useTranslation'
 import type { Locale } from '@shared/utils/i18n/types'
 
-const { locale, messages: customMessages, separator = '*' } = Astro.props as CarouselBannerProps & { locale: Locale };
-const t = (key: string) => getTranslation(locale, key);
+const { locale, messages: customMessages, separator = '*' } = Astro.props as CarouselBannerProps & { locale: Locale }
+const t = (key: string) => getTranslation(locale, key)
 
 const defaultMessages = [
   t('carouselBanner.defaultMessages.message1'),
   t('carouselBanner.defaultMessages.message2'),
   t('carouselBanner.defaultMessages.message3'),
-];
+]
 
-const messages = customMessages && customMessages.length > 0 ? customMessages : defaultMessages;
+const messages = customMessages && customMessages.length > 0 ? customMessages : defaultMessages
 
 // Process messages to ensure they are strings, formatting objects if necessary
 const displayText = messages
   .map(msg => {
     if (typeof msg === 'string') {
-      return msg; // Default messages are already strings
+      return msg // Default messages are already strings
     }
     // Custom messages are objects with title and description
     // The test expects 'Custom Title 1' and 'Custom Desc 1' to be present.
-    return `${msg.title} ${msg.description}`; 
+    return `${msg.title} ${msg.description}` 
   })
-  .join(`<span class="carousel-star">${separator}</span>`);
+  .join(`<span class="carousel-star">${separator}</span>`)
 ---
 
 <div class="banner-container">

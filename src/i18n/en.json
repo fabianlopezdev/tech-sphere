@@ -1,12 +1,11 @@
 {
-  "site": {
-    "title": "Tech Sphere",
-    "description": "Your next generation tech solution"
-  },
-  "common": {
-    "loading": "Loading...",
-    "error": "An error occurred",
-    "retry": "Retry"
+  "carouselBanner": {
+    "defaultMessages": {
+      "message1": "COMING SOON",
+      "message2": "STAY CURIOUS",
+      "message3": "INNOVATION IN PROGRESS"
+    },
+    "tooltip": "Live updates coming soon!"
   },
   "comingSoon": {
     "title": "Coming Soon",
@@ -27,16 +26,19 @@
       "rightsReserved": "All rights reserved."
     }
   },
-  "carouselBanner": {
-    "defaultMessages": {
-      "message1": "COMING SOON",
-      "message2": "STAY CURIOUS",
-      "message3": "INNOVATION IN PROGRESS"
-    },
-    "tooltip": "Live updates coming soon!"
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry"
   },
-  "techSphereViewer": {
-    "ariaLabel": "Tech Sphere 3D visualization"
+  "languages": {
+    "en": "English",
+    "es": "Spanish",
+    "ca": "Catalan"
+  },
+  "site": {
+    "title": "Tech Sphere",
+    "description": "Your next generation tech solution"
   },
   "sphereViewer": {
     "webglNotSupported": {
@@ -50,13 +52,11 @@
     },
     "loadingModel": "Loading 3D model..."
   },
-  "languages": {
-    "en": "English",
-    "es": "Spanish",
-    "ca": "Catalan"
-  },
   "subtitle": {
     "defaultTextPrefix": "Your agency for",
     "dynamicWordsList": "[\"DESIGN\", \"DEVELOPMENT\", \"GROWTH\", \"MARKETING\", \"APPS\", \"LEADS\", \"WEBSITES\", \"SOFTWARE\", \"AI\"]"
+  },
+  "techSphereViewer": {
+    "ariaLabel": "Tech Sphere 3D visualization"
   }
 }
