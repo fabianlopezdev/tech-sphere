@@ -20,29 +20,14 @@ const sphereViewerTranslations = {
 }
 ---
 
-{/* Pass translations to sphereViewer.js via a data attribute */}
-<div
-  id="sphere-translations-data"
-  data-translations={JSON.stringify(sphereViewerTranslations)}
-  style="display: none;"
->
-</div>
-
-{/* Update the sphereViewer.js script to read from the data attribute instead */}
-<script>
-  // This script will run after the DOM is loaded
-  document.addEventListener('DOMContentLoaded', () => {
-    // Create a script element with the translations
-    const dataElement = document.getElementById('sphere-translations-data')
-    if (dataElement) {
-      const translationsData = dataElement.getAttribute('data-translations')
-      const scriptElement = document.createElement('script')
-      scriptElement.type = 'application/json'
-      scriptElement.id = 'sphere-viewer-translations'
-      scriptElement.textContent = translationsData
-      document.body.appendChild(scriptElement)
-    }
-  })
+{/* Pass translations to sphereViewer.js */}
+<script is:inline define:vars={{ translations: sphereViewerTranslations }} type="module">
+  // Create a script element with the translations
+  const scriptElement = document.createElement('script')
+  scriptElement.type = 'application/json'
+  scriptElement.id = 'sphere-viewer-translations'
+  scriptElement.textContent = JSON.stringify(translations)
+  document.body.appendChild(scriptElement)
 </script>
 
 {/* The main script for the 3D viewer */}
