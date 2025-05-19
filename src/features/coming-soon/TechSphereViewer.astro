@@ -1,13 +1,36 @@
 ---
-// No props are needed for this component, but we'll set up the structure for consistency
+import type { Locale } from '@shared/utils/i18n/types'
+import { getTranslation } from '@shared/utils/i18n/useTranslation'
+
+export interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const t = (key: string) => getTranslation(locale, key)
+
+const sphereViewerTranslations = {
+  webglNotSupportedMessage1: t('sphereViewer.webglNotSupported.message1'),
+  webglNotSupportedMessage2: t('sphereViewer.webglNotSupported.message2'),
+  sceneInitErrorTitle: t('sphereViewer.sceneInitError.title'),
+  sceneInitErrorMessage1: t('sphereViewer.sceneInitError.message1'),
+  sceneInitErrorMessage2: t('sphereViewer.sceneInitError.message2'),
+  loadingModel: t('sphereViewer.loadingModel'),
+}
 ---
 
-<script src="/src/scripts/coming-soon/sphereViewer"></script>
+{/* This script tag will pass the translations to sphereViewer.js */}
+<script type="application/json" id="sphere-viewer-translations" set:html={JSON.stringify(sphereViewerTranslations)} />
+
+{/* The main script for the 3D viewer */}
+<script src="/src/scripts/coming-soon/sphereViewer.js"></script>
+
 <div
   id="sphere-canvas"
   style="width: 100%; height: clamp(12.5rem, 7.822rem + 20.79vw, 25rem);"
   role="img"
-  aria-label="Tech Sphere 3D visualization"
+  aria-label={t('techSphereViewer.ariaLabel')}
   aria-live="polite"
 >
+  {/* Fallback content or loading messages will be injected here by sphereViewer.js using the translations provided above */}
 </div>
