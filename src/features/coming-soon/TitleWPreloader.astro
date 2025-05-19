@@ -1,19 +1,14 @@
 ---
-import { TitleWithPreloaderPropsSchema, type TitleWithPreloaderProps } from './types'
+import { TitleWithPreloaderPropsSchema } from './types'
 
 const props = TitleWithPreloaderPropsSchema.parse(Astro.props)
-const { title = 'TECH', showPreloader = true, className = '' } = props
+const { title = 'TECH', className = '' } = props
 const titleParts = title.split(' ')
 const mainPart = titleParts[0] || 'TECH'
 const secondPart = titleParts[1] || 'SPHERE'
-
-// Get the dark mode state from the document
-const isDark = typeof document !== 'undefined' 
-  ? document.documentElement.classList.contains('dark') 
-  : false
 ---
 
-<div class:list={['title-wrapper', className, { 'dark': isDark }]}>
+<div id="title-wrapper" class:list={['title-wrapper', className]}>
   <h1 class="title">
     <span class="title-main">
       {mainPart.split('').map((char, i) => (
@@ -27,6 +22,23 @@ const isDark = typeof document !== 'undefined'
     </span>
   </h1>
 </div>
+
+<script>
+  // Check dark mode on the client side
+  const titleWrapper = document.getElementById('title-wrapper');
+  if (document.documentElement.classList.contains('dark') && titleWrapper) {
+    titleWrapper.classList.add('dark');
+  }
+  
+  // Listen for theme changes
+  document.addEventListener('theme-changed', (e) => {
+    if (e.detail.isDark && titleWrapper) {
+      titleWrapper.classList.add('dark');
+    } else if (titleWrapper) {
+      titleWrapper.classList.remove('dark');
+    }
+  });
+</script>
 
 <style>
   .title-wrapper {
