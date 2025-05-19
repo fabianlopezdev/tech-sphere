@@ -1,12 +1,28 @@
 ---
 import '@shared/styles/global.css'
 import '@shared/styles/morphing-toggle.css'
+import '@shared/styles/language-switcher.css'
+import { getPreferredLocale } from '@shared/utils/i18n/useTranslation'
+import { LANGUAGE_NAMES } from '@shared/utils/i18n/types'
 
 const { pageTitle = 'Tech Sphere', pageDescription = 'Benvinguts a la web de Tech Sphere' } =
   Astro.props
+
+// Get the current locale from the URL or default to user preference
+const pathname = Astro.url.pathname
+let currentLocale = 'ca' // Default is now Catalan
+
+// Check if URL has a locale prefix
+const localeMatch = pathname.match(/^\/(en|es)\//i)
+if (localeMatch) {
+  currentLocale = localeMatch[1].toLowerCase()
+} else {
+  // If no locale in URL, we're in the default locale (Catalan)
+  currentLocale = 'ca'
+}
 ---
 
-<html lang="ca">
+<html lang="{currentLocale}">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -26,7 +42,7 @@ const { pageTitle = 'Tech Sphere', pageDescription = 'Benvinguts a la web de Tec
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:site_name" content="Tech Sphere" />
-    <meta property="og:locale" content="ca" />
+    <meta property="og:locale" content="{currentLocale}" />
     <meta property="og:image" content="/images/social/og-image.svg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
