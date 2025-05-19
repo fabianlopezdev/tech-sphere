@@ -32,8 +32,10 @@ interface OpacitySettings {
 const isWebGLSupported = (): boolean => {
   try {
     const canvas = document.createElement('canvas')
-    return !!(window.WebGLRenderingContext &&
-      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')))
+    return !!(
+      window.WebGLRenderingContext &&
+      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
+    )
   } catch {
     return false
   }
@@ -92,7 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Initialize with default colors (will be updated based on theme)
-  let targetColors: THREE.Color[] | ColorFallback[] = [...(colorSchemes.light as (THREE.Color | ColorFallback)[])]
+  let targetColors: THREE.Color[] | ColorFallback[] = [
+    ...(colorSchemes.light as (THREE.Color | ColorFallback)[]),
+  ]
   // Increased opacity for dark mode to make colors more visible
   const opacitySettings: OpacitySettings = {
     light: 0.3,
@@ -117,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
       modelMaterials.forEach((material) => {
         // Update opacity for materials with opacity property
         if ('opacity' in material) {
-          (material as THREE.Material & { opacity: number }).opacity = targetOpacity
+          ;(material as THREE.Material & { opacity: number }).opacity = targetOpacity
         }
 
         // Optionally, you can immediately update the color to the first color in the new scheme
@@ -151,7 +155,11 @@ document.addEventListener('DOMContentLoaded', () => {
       0.1,
       100
     )
-    camera.position.z = 5
+
+    // Calculate camera position based on container dimensions to ensure sphere fills the height
+    const aspectRatio = container.clientWidth / container.clientHeight
+    // Find a middle ground for camera position
+    camera.position.z = aspectRatio > 1 ? 5 : 5 * (1 / aspectRatio)
 
     renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -219,40 +227,57 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
           model = gltf.scene // Assign to the outer scope variable
 
-          // --- Process Model Materials ---
+          // Scale model to fit container height
           if (model) {
+            // Calculate bounding box to get model dimensions
+            const boundingBox = new THREE.Box3().setFromObject(model)
+            const modelHeight = boundingBox.max.y - boundingBox.min.y
+
+            // Calculate scale factor based on container aspect ratio
+            const aspectRatio = container.clientWidth / container.clientHeight
+            // Use reasonable values that will fill the container without outgrowing it
+            const desiredHeight = aspectRatio > 1 ? 4.5 : 6 // Moderate values to properly fill container
+            const scale = desiredHeight / modelHeight
+
+            // Apply uniform scaling to maintain proportions
+            model.scale.set(scale, scale, scale)
+
+            // Center the model
+            model.position.y = 0
+
+            // --- Process Model Materials ---
             model.traverse((object: THREE.Object3D) => {
-            if ((object as THREE.Mesh).isMesh) {
-              const mesh = object as THREE.Mesh
-              // Ensure we handle single material or array of materials
-              const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material]
+              if ((object as THREE.Mesh).isMesh) {
+                const mesh = object as THREE.Mesh
+                // Ensure we handle single material or array of materials
+                const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material]
 
-              materials.forEach((material: THREE.Material) => {
-                // For most materials, we need to ensure they're set to transparent = true
-                // Since we're applying partial opacity
+                materials.forEach((material: THREE.Material) => {
+                  // For most materials, we need to ensure they're set to transparent = true
+                  // Since we're applying partial opacity
 
-                // Check if this is a MeshStandardMaterial or other material with 'color' property
-                if ('color' in material) {
-                  // Store reference to material for color cycling
-                  modelMaterials.push(material)
+                  // Check if this is a MeshStandardMaterial or other material with 'color' property
+                  if ('color' in material) {
+                    // Store reference to material for color cycling
+                    modelMaterials.push(material)
 
-                  // Set material properties
-                  if ('transparent' in material) {
-                    (material as THREE.Material & { transparent: boolean }).transparent = true
+                    // Set material properties
+                    if ('transparent' in material) {
+                      ;(material as THREE.Material & { transparent: boolean }).transparent = true
+                    }
+                    if ('opacity' in material) {
+                      ;(material as THREE.Material & { opacity: number }).opacity = targetOpacity
+                    }
+                    if ('side' in material) {
+                      ;(material as THREE.Material & { side: THREE.Side }).side = THREE.DoubleSide
+                    }
                   }
-                  if ('opacity' in material) {
-                    (material as THREE.Material & { opacity: number }).opacity = targetOpacity
-                  }
-                  if ('side' in material) {
-                    (material as THREE.Material & { side: THREE.Side }).side = THREE.DoubleSide
-                  }
-                }
-              })
-            }
-          })
+                })
+              }
+            })
 
-          // Add model to scene
-          scene.add(model)
+            // Add model to scene
+            scene.add(model)
           }
 
           // Start animation loop
@@ -339,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const targetColor = targetColors[colorIndex]
           if (targetColor instanceof THREE.Color) {
             // If it's a THREE.Color, use copy
-            (material as THREE.Material & { color: THREE.Color }).color.copy(targetColor)
+            ;(material as THREE.Material & { color: THREE.Color }).color.copy(targetColor)
           } else {
             // If it's our fallback object with r,g,b properties
             const color = (material as THREE.Material & { color: THREE.Color }).color
@@ -361,6 +386,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Update camera aspect ratio
     camera.aspect = container.clientWidth / container.clientHeight
+
+    // Recalculate camera position based on new aspect ratio
+    const aspectRatio = container.clientWidth / container.clientHeight
+    // Find a middle ground for camera position
+    camera.position.z = aspectRatio > 1 ? 5 : 5 * (1 / aspectRatio)
+
     camera.updateProjectionMatrix()
 
     // Update renderer size
