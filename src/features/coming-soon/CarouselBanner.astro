@@ -37,7 +37,7 @@ type Message = string | MessageObject
             <span class="message">
               {typeof msg === 'string' ? msg : `${msg.title} ${msg.description}`}
             </span>
-            {i < messages.length - 1 && <span class="carousel-star">{separator}</span>}
+            {i < messages.length && <span class="carousel-star">{separator}</span>}
           </>
         ))
       }
@@ -48,7 +48,7 @@ type Message = string | MessageObject
             <span class="message">
               {typeof msg === 'string' ? msg : `${msg.title} ${msg.description}`}
             </span>
-            {i < messages.length - 1 && <span class="carousel-star">{separator}</span>}
+            {i < messages.length && <span class="carousel-star">{separator}</span>}
           </>
         ))
       }
@@ -67,6 +67,7 @@ type Message = string | MessageObject
 
   /* --- Base Styles (Mobile First / Screens < 1020px) --- */
   .banner-container {
+    padding-block-start: clamp(2rem, 5vw, 5rem);
     width: 105vw; /* full width in normal flow */
     margin-bottom: 0.5rem;
     /* no positioning here so it flows on small screens */
@@ -206,6 +207,7 @@ type Message = string | MessageObject
   /* --- Large Screen Overrides (>= 1020px) --- */
   @media (min-width: 1020px) {
     .banner-container {
+      padding-block-start: 0rem;
       position: absolute;
       bottom: -10%;
       left: 70%;

@@ -54,7 +54,7 @@
   },
   "subtitle": {
     "defaultTextPrefix": "Tu agencia de",
-    "dynamicWordsList": "[\"DISEÑO\", \"DESARROLLO\", \"CRECIMIENTO ONLINE\", \"MARKETING\", \"APPS\", \"LEADS\", \"WEB\", \"SOFTWARE\", \"IA\"]"
+    "dynamicWordsList": "[\"DISEÑO\", \"DESARROLLO\", \"CRECIMIENTO ONLINE\", \"MARKETING\", \"APPS\", \"LEADS\", \"WEBS\", \"SOFTWARE\", \"IA\"]"
   },
   "techSphereViewer": {
     "ariaLabel": "Visualización 3D de Tech Sphere"
