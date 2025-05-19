@@ -3,13 +3,28 @@ import type { SubtitleProps } from './types'
 import type { Locale } from '@shared/utils/i18n/types'
 import { getTranslation } from '@shared/utils/i18n/useTranslation'
 
-const { locale, text: customText, dynamicWords: customDynamicWords, className = '' } = Astro.props as SubtitleProps & { locale: Locale }
+const {
+  locale,
+  text: customText,
+  dynamicWords: customDynamicWords,
+  className = '',
+} = Astro.props as SubtitleProps & { locale: Locale }
 const t = (key: string) => getTranslation(locale, key)
 
 const text = customText ?? t('subtitle.defaultTextPrefix')
 
 let dynamicWords: string[]
-const defaultEnglishWords = ['DESIGN', 'DEVELOPMENT', 'GROWTH', 'MARKETING', 'APPS', 'LEADS', 'WEBSITES', 'SOFTWARE', 'AI']
+const defaultEnglishWords = [
+  'DESIGN',
+  'DEVELOPMENT',
+  'GROWTH',
+  'MARKETING',
+  'APPS',
+  'LEADS',
+  'WEBSITES',
+  'SOFTWARE',
+  'AI',
+]
 
 if (Array.isArray(customDynamicWords) && customDynamicWords.length > 0) {
   dynamicWords = customDynamicWords
@@ -18,25 +33,39 @@ if (Array.isArray(customDynamicWords) && customDynamicWords.length > 0) {
     const translatedWordsString = t('subtitle.dynamicWordsList')
     if (translatedWordsString) {
       dynamicWords = JSON.parse(translatedWordsString)
-      if (!Array.isArray(dynamicWords) || dynamicWords.some(word => typeof word !== 'string')) {
+      if (!Array.isArray(dynamicWords) || dynamicWords.some((word) => typeof word !== 'string')) {
         // Fallback if parsing results in non-array or array of non-strings
-        console.warn(`[Subtitle.astro] Parsed 'subtitle.dynamicWordsList' for locale '${locale}' is not a valid string array. Falling back to defaults.`)
+        console.warn(
+          `[Subtitle.astro] Parsed 'subtitle.dynamicWordsList' for locale '${locale}' is not a valid string array. Falling back to defaults.`
+        )
         dynamicWords = defaultEnglishWords
       }
     } else {
       // Fallback if translation key is missing
-      console.warn(`[Subtitle.astro] Missing translation for 'subtitle.dynamicWordsList' in locale '${locale}'. Falling back to defaults.`)
+      console.warn(
+        `[Subtitle.astro] Missing translation for 'subtitle.dynamicWordsList' in locale '${locale}'. Falling back to defaults.`
+      )
       dynamicWords = defaultEnglishWords
     }
   } catch (error) {
     // Fallback if JSON.parse fails
-    console.error(`[Subtitle.astro] Error parsing 'subtitle.dynamicWordsList' for locale '${locale}':`, error)
+    console.error(
+      `[Subtitle.astro] Error parsing 'subtitle.dynamicWordsList' for locale '${locale}':`,
+      error
+    )
     dynamicWords = defaultEnglishWords
   }
 }
 ---
 
-<script type="application/json" id="subtitle-dynamic-words-data" set:html={JSON.stringify(dynamicWords)}></script>
+<script is:inline define:vars={{ words: dynamicWords }} type="module">
+  // Create a script element with the dynamic words data
+  const scriptElement = document.createElement('script')
+  scriptElement.type = 'application/json'
+  scriptElement.id = 'subtitle-dynamic-words-data'
+  scriptElement.textContent = JSON.stringify(words)
+  document.body.appendChild(scriptElement)
+</script>
 
 <script src="/src/scripts/coming-soon/subtitle.js"></script>
 
@@ -57,21 +86,21 @@ if (Array.isArray(customDynamicWords) && customDynamicWords.length > 0) {
   .splitflap-letter {
     display: inline-block;
     text-align: center;
-    min-width: 0.6em; 
-    line-height: 1; 
-    vertical-align: bottom; 
+    min-width: 0.6em;
+    line-height: 1;
+    vertical-align: bottom;
   }
 
   #splitflap-dynamic-words {
-    padding-top: 0.5rem; 
+    padding-top: 0.5rem;
     letter-spacing: 0.1em;
     font-weight: 700;
     font-size: clamp(2rem, 5vw, 3rem);
     display: inline-block;
-    vertical-align: bottom; 
-    min-height: 1.2em; 
-    line-height: 1.2; 
+    vertical-align: bottom;
+    min-height: 1.2em;
+    line-height: 1.2;
     min-width: 11em;
-    white-space: nowrap; 
+    white-space: nowrap;
   }
 </style>
