@@ -1,0 +1,16 @@
+{
+  "site": {
+    "title": "Tech Sphere",
+    "description": "La teva solució tecnològica de propera generació"
+  },
+  "common": {
+    "loading": "Carregant...",
+    "error": "S'ha produït un error",
+    "retry": "Torna-ho a provar"
+  },
+  "comingSoon": {
+    "title": "Properament",
+    "description": "Es venen coses increïbles. Presta atenció!",
+    "notifyMe": "Notifica'm"
+  }
+}

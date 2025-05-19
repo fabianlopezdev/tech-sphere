@@ -1,0 +1,16 @@
+{
+  "site": {
+    "title": "Tech Sphere",
+    "description": "Tu solución tecnológica de próxima generación"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "retry": "Reintentar"
+  },
+  "comingSoon": {
+    "title": "Próximamente",
+    "description": "Estamos trabajando en algo increíble. ¡Mantente al tanto!",
+    "notifyMe": "Notifícame"
+  }
+}
