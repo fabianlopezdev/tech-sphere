@@ -22,6 +22,27 @@ export default tseslint.config(
   // Base ESLint recommended config for .js, .mjs, .cjs
   eslint.configs.recommended,
 
+  // JavaScript Configuration with browser globals
+  {
+    files: ['**/*.js'],
+    languageOptions: {
+      globals: {
+        // Browser globals
+        document: 'readonly',
+        window: 'readonly',
+        console: 'readonly',
+        localStorage: 'readonly',
+        setTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        requestAnimationFrame: 'readonly',
+        alert: 'readonly',
+        CustomEvent: 'readonly',
+        MutationObserver: 'readonly'
+      }
+    }
+  },
+
   // TypeScript Configuration for .ts, .tsx files
   {
     files: ['**/*.ts', '**/*.tsx'],
