@@ -133,12 +133,13 @@ const t = (key: string) => getTranslation(locale, key)
   </div>
 
   <main id="main-content">
-    <div class="preloader">
-      <AnimatedTitle />
-      <TechSphereViewer locale={locale} />
+    <div class="title-container animate">
+      <AnimatedTitle title="TECH SPHERE" />
     </div>
 
-    <div>
+    <TechSphereViewer locale={locale} />
+
+    <div class="content-section">
       <Subtitle locale={locale} />
       <CarouselBanner locale={locale} />
     </div>

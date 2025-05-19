@@ -57,83 +57,60 @@ const secondPart = titleParts[1] || 'SPHERE'
   }
 
   .title {
-    display: flex;
-    flex-direction: column;
-    font-size: clamp(2.5rem, 10vw, 5rem);
-    font-weight: 900;
-    line-height: 1;
-    text-transform: uppercase;
+    font-size: clamp(5rem, 12vw, 10rem);
     margin: 0;
-    position: relative;
-  }
-
-  .title-main,
-  .title-second {
-    display: block;
-    position: relative;
-    overflow: hidden;
+    line-height: 0.85;
+    font-family: 'YourFinalFontName', 'Arial Black', Gadget, sans-serif;
+    letter-spacing: normal;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    flex-shrink: 0;
   }
 
   .title-main {
-    color: var(--color-primary);
-    margin-bottom: 0.1em;
+    display: block;
+    color: var(--color-text-dark);
+    transition: color var(--transition-medium);
+  }
+
+  /* Target both parent and self dark mode classes */
+  :global(.dark) .title-main,
+  .dark .title-main {
+    color: #f8f8f8 !important; /* Slightly off-white for better visibility */
   }
 
   .title-second {
-    color: var(--color-secondary);
+    display: block;
+    font-size: clamp(3.4rem, 8vw, 6.8rem);
+    font-weight: normal;
+    color: var(--color-accent);
+    letter-spacing: -0.05em;
   }
 
-  /* Character animation */
   .char {
     display: inline-block;
-    transform-origin: 50% 100%;
-    animation-duration: 0.5s;
-    animation-fill-mode: both;
-    animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
+    animation-delay: calc(0.05s * var(--i, 0));
   }
 
-  /* Apply animation only when parent has animate class */
-  .title-container.animate .title-main .char {
-    animation-name: slideInUp;
-    animation-delay: calc(var(--i) * 0.05s);
+  .title-second .char {
+    animation-delay: calc(0.3s + 0.03s * var(--i, 0));
   }
 
-  .title-container.animate .title-second .char {
-    animation-name: slideInUp;
-    animation-delay: calc(0.4s + var(--i) * 0.05s);
-  }
-
-  @keyframes slideInUp {
-    0% {
-      opacity: 0;
-      transform: translateY(100%);
-    }
-    100% {
+  @keyframes fadeInUp {
+    to {
       opacity: 1;
       transform: translateY(0);
     }
   }
 
-  /* Dark mode styles */
-  .title-wrapper.dark .title-main {
-    color: var(--color-primary-dark);
-  }
-
-  .title-wrapper.dark .title-second {
-    color: var(--color-secondary-dark);
-  }
-
-  /* Responsive adjustments */
-  @media (min-width: 768px) {
-    .title {
-      font-size: clamp(3.5rem, 12vw, 7rem);
-    }
-  }
-
-  /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .char {
-      animation-duration: 0.001ms !important;
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
     }
   }
 </style>
