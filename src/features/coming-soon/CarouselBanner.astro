@@ -3,7 +3,11 @@ import type { CarouselBannerProps } from './types'
 import { getTranslation } from '@shared/utils/i18n/useTranslation'
 import type { Locale } from '@shared/utils/i18n/types'
 
-const { locale, messages: customMessages, separator = '*' } = Astro.props as CarouselBannerProps & { locale: Locale }
+const {
+  locale,
+  messages: customMessages,
+  separator = '*',
+} = Astro.props as CarouselBannerProps & { locale: Locale }
 const t = (key: string) => getTranslation(locale, key)
 
 const defaultMessages = [
@@ -14,22 +18,41 @@ const defaultMessages = [
 
 const messages = customMessages && customMessages.length > 0 ? customMessages : defaultMessages
 
-// Process messages to ensure they are strings, formatting objects if necessary
-const displayText = messages
-  .map(msg => {
-    if (typeof msg === 'string') {
-      return msg // Default messages are already strings
-    }
-    // Custom messages are objects with title and description
-    // The test expects 'Custom Title 1' and 'Custom Desc 1' to be present.
-    return `${msg.title} ${msg.description}` 
-  })
-  .join(`<span class="carousel-star">${separator}</span>`)
+// Define a type for the message object
+type MessageObject = {
+  title: string
+  description: string
+}
+
+// Type for messages array (either string or MessageObject)
+type Message = string | MessageObject
 ---
 
 <div class="banner-container">
   <div class="carousel-banner">
-    <div class="carousel-text" id="carousel-text" set:html={`${displayText} ${displayText}`} />
+    <div class="carousel-text" id="carousel-text">
+      {
+        (messages as Message[]).map((msg: Message, i: number) => (
+          <>
+            <span class="message">
+              {typeof msg === 'string' ? msg : `${msg.title} ${msg.description}`}
+            </span>
+            {i < messages.length - 1 && <span class="carousel-star">{separator}</span>}
+          </>
+        ))
+      }
+      {/* Repeat for the duplicated content */}
+      {
+        (messages as Message[]).map((msg: Message, i: number) => (
+          <>
+            <span class="message">
+              {typeof msg === 'string' ? msg : `${msg.title} ${msg.description}`}
+            </span>
+            {i < messages.length - 1 && <span class="carousel-star">{separator}</span>}
+          </>
+        ))
+      }
+    </div>
   </div>
   <div class="banner-tooltip">{t('carouselBanner.tooltip')}</div>
 </div>
