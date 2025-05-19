@@ -29,7 +29,8 @@
     ],
     "*.{astro}": [
       "eslint --fix",
-      "prettier --write"
+      "prettier --write",
+      "pnpm a11y:static"
     ],
     "*.{json,jsonc,json5}": [
       "eslint --fix",
@@ -51,6 +52,7 @@
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,astro,json,css,md}'",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "a11y:static": "node scripts/a11y-check.mjs",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:ui": "vitest --ui",
